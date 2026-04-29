@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+:root {
+    /* fonts */
+    --font-default: "DM Sans", sans-serif;
+    --font-heading: "Poppins", sans-serif;
+    --font-fa: "Font Awesome";
+    
+    /* colors */
+    --theme-color: #D6EB31;
+    --dark-color: #27252F;
+    --dark-gray-color: #6F6F6F; 
+    --gray-color: #D9D9D9;
+    --light-color: #F7F7F7;
+    --white-color: #FFFFFF;
+    --danger-color: #CE2B2BAF;
+
+    --body-background-color: "var(--light-color)";
+    --heading-color: "var(--dark-color)";
+    --text-color: "var(--dark-gray-color)";
+
+}
