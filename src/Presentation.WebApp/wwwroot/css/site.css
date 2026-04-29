@@ -41,3 +41,12 @@ html,body{
   height: 100dvh;
   padding: 1rem;
 }
+/* header section */
+.section__header{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  background-size: 100%;
+  color: var(--dark-gray-color);
+  padding: 1rem 2rem 0rem;
+}
