@@ -27,3 +27,7 @@ Thumbs.db
 # Environment / secrets
 .env
 appsettings.Development.json
+
+
+**/node_modules/
+site.min.css
