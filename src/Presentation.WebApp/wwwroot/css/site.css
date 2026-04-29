@@ -116,7 +116,24 @@ header{
             color: var(--menu-item-link-active-color)
           }
         }
+      
       }
+      .account-menu{
+        display:none;
+        justify-content: end;
+        .menu-item-link{
+          display: none;
+
+          @media(width<= 1600px){
+            display: inline-block;
+          }
+          
+          @media(width<= 768px){
+            display:flex;
+          }
+        }
+      }
+      
     }
   }
 }
