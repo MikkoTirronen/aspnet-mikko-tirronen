@@ -12,10 +12,14 @@
     <title>@ViewData["Title"] - Presentation.WebApp</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Presentation.WebApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true"/>
 </head>
 <body>
     <div class="layout">
+        <header>
+            <partial name  ="Partials/Common/_HeaderSection.cshtml"/>
+            @* @RenderSectionAsync("Hero", required:false) *@
+        </header>
         <main>
             @RenderBody()
         </main>
