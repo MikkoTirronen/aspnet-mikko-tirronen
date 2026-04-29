@@ -16,6 +16,10 @@
 </head>
 <body>
     <div class="layout">
+        <header>
+            <partial name  ="Partials/Common/_HeaderSection.cshtml"/>
+            @RenderSectionAsync("Hero", required:false)
+        </header>
         <main>
             @RenderBody()
         </main>
