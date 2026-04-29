@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+  <Target Name="TailwindBuild" BeforeTargets="Build">
+    <Exec Command="npx tailwindcss -i wwwroot/css/site.css -o wwwroot/css/site.min.css" />
+  </Target>
+  <Target Name="TailwindWatch" BeforeTargets="Run">
+    <Exec Command="npxtailwindcss -i wwwroot/css/site.css -o wwwroot/css/site.min.css --watch" />
+  </Target>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
