@@ -34,3 +34,10 @@ html,body{
   line-height: 1.5;
   margin:0;
 }
+
+.layout{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100dvh;
+  padding: 1rem;
+}
