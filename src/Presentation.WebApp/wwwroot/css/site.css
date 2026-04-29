@@ -76,5 +76,12 @@ header{
     grid-template-columns: 1fr 3fr 1fr;
   }
 
-
+  .main-menu{
+    display:none;
+    justify-content: center;
+    
+    @media (width >= 1200px) {
+      desplay: flex;
+    }
+  }
 }
