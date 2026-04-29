@@ -79,9 +79,19 @@ header{
   .main-menu{
     display:none;
     justify-content: center;
-    
+
     @media (width >= 1200px) {
       desplay: flex;
+    }
+    .menu{
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    
+      
     }
   }
 }

@@ -3,18 +3,20 @@
         <a href="/"><img src="~/images/logotype.png" alt="CoreFitness LogoType" /></a>
     </div>
     <nav class="main-menu">
-        <li class="">
-            <a class="" asp-action="Index" asp-controller="FitnessCenters">Fitness Centers</a>
-        </li>
-        <li class="">
-            <a class="" asp-action="Index" asp-controller="Memberships">Memberships</a>
-        </li>
-        <li class="">
-            <a class="" asp-action="Index" asp-controller="Training">Training</a>      
-        </li>
+        <ul class="menu">
+            <li class="">
+                <a class="" asp-action="Index" asp-controller="FitnessCenters">Fitness Centers</a>
+            </li>
+            <li class="">
+                <a class="" asp-action="Index" asp-controller="Memberships">Memberships</a>
+            </li>
+            <li class="">
+                <a class="" asp-action="Index" asp-controller="Training">Training</a>      
+            </li>
+        </ul>
     </nav>
     <nav>
-        <ul class="">
+        <ul class="menu">
             <li><a asp-area="Authentication" asp-controller="SignUp" asp-action="GetStarted">Become Member</a></li>
             <li><a class ="" asp-area="Authentication" asp-contoller="SignIn" asp-action="SignIn">Sign In</a></li>
         </ul>
