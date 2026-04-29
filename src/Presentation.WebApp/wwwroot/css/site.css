@@ -15,12 +15,16 @@
     --white-color: #FFFFFF;
     --danger-color: #CE2B2BAF;
 
-    --body-background-color: "var(--light-color)";
-    --heading-color: "var(--dark-color)";
-    --text-color: "var(--dark-gray-color)";
+    --body-background-color: var(--light-color);
+    --heading-color: var(--dark-color);
+    --text-color: var(--dark-gray-color);
 
-    --header-background-color: "var(--dark-color)";
-    --header-text-color: "var(--white-color)"
+    --header-background-color: var(--dark-color);
+    --header-text-color: var(--white-color);
+
+    --menu-item-link-color:var(--white-color);
+    --menu-item-link-hover-color:var(--theme-color);
+    --menu-item-link-active-color:var(--theme-color);
 }
 *,*::before,*::after{
   box-sizing: border-box;
@@ -93,6 +97,25 @@ header{
     
       .menu-item{
         font-size: 1rem;
+
+        .menu-item-link{
+          color: var(--menu-item-link-color);
+          background-color: transparent;
+          border: none;
+          outline: none;
+          font-size: 1em;
+          text-decoration: none;
+          font-weight: 600;
+
+          &:hover {
+            color: var(--menu-item-link-hover-color);
+            text-decoration: underline;
+          }
+
+          &:active,&.active{
+            color: var(--menu-item-link-active-color)
+          }
+        }
       }
     }
   }
