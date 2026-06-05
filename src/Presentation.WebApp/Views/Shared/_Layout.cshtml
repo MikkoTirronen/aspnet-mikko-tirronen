@@ -13,11 +13,23 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/components/navbar.css" />
+    
 </head>
 <body>
     <div class="layout">
         <header>
-            <partial name  ="Partials/Common/_HeaderSection.cshtml"/>
+             @* @await Html.PartialAsync("Partials/_PublicNav") *@
+             @* @if (User.Identity?.IsAuthenticated == true)
+            {
+                <partial name="Partials/_AuthNav" />
+            }
+            else
+            {
+                <partial name="Partials/_PublicNav" />
+            } *@
+             <partial name  ="Partials/Common/_HeaderSection.cshtml"/> 
             @* @RenderSectionAsync("Hero", required:false) *@
         </header>
         <main>

@@ -1,0 +1,57 @@
+@model RegisterEmailViewModel;
+@{
+    Layout = "_Layout";
+}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <h1 class="auth-title">Become a Member</h1>
+
+        <p class="auth-subtitle">
+            Sign up to continue your fitness journey with full access to your customized program, 
+            training history, and progress tracking. Stay consistent, monitor your development, 
+            and keep moving forward with the structure and support build into your account.
+        </p>
+        <div class="divider"></div>
+        <!-- SOCIAL LOGIN -->
+        <div class="social-login">
+            <button class="social-btn">
+                <img src="~/images/google.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" />
+            </button>
+            <button class="social-btn"><img src="~/images/facebook.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" /></button>
+            <button class="social-btn"><img src="~/images/GitHub_Invertocat_Black.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" /></button>
+        </div>
+
+        <div class="divider">
+            <span>OR CONTINUE WITH</span>
+        </div>
+
+        <form asp-action="Register" method="post" class="auth-form">
+
+            <label>Email Address *</label>
+            <input asp-for="Email" class="input" type="email" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email"></span>
+            
+
+            <button class="btn-primary">
+                Continue →
+            </button>
+
+            
+
+        </form>
+
+    </div>
+
+</div>

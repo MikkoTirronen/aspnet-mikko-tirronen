@@ -1,0 +1,64 @@
+@model LoginViewModel;
+@{
+    Layout = "_Layout";
+}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <h1 class="auth-title">Welcome Back!</h1>
+
+        <p class="auth-subtitle">
+            Log in to continue your fitness journey with full access to your customized program, training history, and progress tracking.
+        </p>
+        <div class="divider"></div>
+        <!-- SOCIAL LOGIN -->
+        <div class="social-login">
+            <button class="social-btn">
+                <img src="~/images/google.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" />
+            </button>
+            <button class="social-btn"><img src="~/images/facebook.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" /></button>
+            <button class="social-btn"><img src="~/images/GitHub_Invertocat_Black.svg"
+                    alt="GitHub"
+                    width="24"
+                    height="24" /></button>
+        </div>
+
+        <div class="divider">
+            <span>OR CONTINUE WITH</span>
+        </div>
+
+        <form asp-action="Login" method="post" class="auth-form">
+            <div asp-asp-validation-summary="All"></div>
+            
+            <label>Email Address *</label>
+            <input asp-for="Email" class="input" type="email" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email"></span>
+            <label class="password-row">
+                Password
+                <a href="#" class="forgot">Forgot password?</a>
+            </label>
+
+            <input asp-for="Password" class="input" type="password" placeholder="Enter Password" />
+
+            <button type="submit" class="btn-primary">
+                Continue →
+            </button>
+
+            <div class="checkbox-row">
+                <input type="checkbox" />
+                <span>Accept user terms and conditions</span>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

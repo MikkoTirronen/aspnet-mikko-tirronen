@@ -1,29 +1,41 @@
+using Microsoft.AspNetCore.Identity;
+using Presentation.WebApp.DependencyInjections;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+});
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ------------------- PIPELINE -------------------
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+
+// ✅ MUST come early
+app.UseStaticFiles();
+
 app.UseRouting();
 
+// 🔐 REQUIRED for Identity (important even if you don’t use it yet)
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
+// MVC routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
