@@ -1,3 +1,4 @@
+@model LoginViewModel;
 @{
     Layout = "_Layout";
 }
@@ -34,17 +35,18 @@
             <span>OR CONTINUE WITH</span>
         </div>
 
-        <form asp-action="Register" method="post" class="auth-form">
-
+        <form asp-action="Login" method="post" class="auth-form">
+            <div asp-asp-validation-summary="All"></div>
+            
             <label>Email Address *</label>
-            <input class="input" type="email" placeholder="Enter Email Address" />
-
+            <input asp-for="Email" class="input" type="email" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email"></span>
             <label class="password-row">
                 Password
                 <a href="#" class="forgot">Forgot password?</a>
             </label>
 
-            <input class="input" type="password" placeholder="Enter Password" />
+            <input asp-for="Password" class="input" type="password" placeholder="Enter Password" />
 
             <button type="submit" class="btn-primary">
                 Continue →
