@@ -23,7 +23,7 @@ public class GymClass
         Category = category;
     }
 
-    public void Book(Guid userId)
+    public void Book(string userId)
     {
         if (_bookings.Count >= Capacity)
             throw new InvalidOperationException("Class is full");
@@ -34,7 +34,7 @@ public class GymClass
         _bookings.Add(new GymClassBooking(Id, userId));
     }
 
-    public void CancelBooking(Guid userId)
+    public void CancelBooking(string userId)
     {
         var booking = _bookings.FirstOrDefault(x => x.UserId == userId);
 

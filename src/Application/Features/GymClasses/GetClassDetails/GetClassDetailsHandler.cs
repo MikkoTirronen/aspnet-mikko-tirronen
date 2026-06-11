@@ -27,12 +27,12 @@ public sealed class GetClassDetailsHandler
         if (gymClass is null)
             return null;
 
-        if (!Guid.TryParse(query.UserId, out var userId))
+        if (query.UserId is null)
             return null;
 
         var isBooked = await _bookingRepo.ExistsAsync(
             query.ClassId,
-            userId,
+            query.UserId,
             ct);
 
         var bookedCount = await _bookingRepo.CountByClassAsync(

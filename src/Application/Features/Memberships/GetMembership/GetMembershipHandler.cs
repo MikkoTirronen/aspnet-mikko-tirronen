@@ -30,6 +30,7 @@ public sealed class GetMembershipHandler
             membership.UserId,
             membership.MembershipType,
             membership.StartDate,
+            membership.EndDate,
             membership.IsActive);
     }
 }

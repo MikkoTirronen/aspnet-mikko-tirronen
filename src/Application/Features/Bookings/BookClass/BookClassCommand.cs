@@ -4,5 +4,5 @@ namespace Application.Features.Bookings.BookClass;
 
 public sealed record BookClassCommand(
     Guid ClassId,
-    Guid UserId
+    string UserId
 ) : ICommand<bool>;
