@@ -1,8 +1,10 @@
 using System.Security.Claims;
 using Application.Abstractions.Commands;
 using Application.Abstractions.Queries;
+using Application.Abstractions.Services;
 using Application.Features.Memberships.CreateMembership;
 using Application.Features.Memberships.GetMembership;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
@@ -15,12 +17,16 @@ public class MembershipController : Controller
     private readonly IQueryDispatcher _queries;
     private readonly ICommandDispatcher _commands;
 
+    private readonly IMembershipPlanService _service;
+
     public MembershipController(
         IQueryDispatcher queries,
-        ICommandDispatcher commands)
+        ICommandDispatcher commands,
+        IMembershipPlanService service)
     {
         _queries = queries;
         _commands = commands;
+        _service = service;
     }
 
     public async Task<IActionResult> Index(CancellationToken ct)
@@ -31,16 +37,21 @@ public class MembershipController : Controller
             new GetMembershipQuery(userId),
             ct);
 
+        var plans = _service.GetPlans();
+
         var vm = new MembershipIndexViewModel
         {
             CurrentMembership = membership,
 
-            Plans =
-            [
-                new() { Name = "Basic", Price = 299, Description = "Perfect for getting started." },
-                new() { Name = "Premium", Price = 499, Description = "Most popular plan." },
-                new() { Name = "Elite", Price = 799, Description = "Everything included." }
-            ]
+            Plans = plans.Select(p => new MembershipPlanViewModel
+            {
+                MembershipType = p.MembershipType,
+                Name = p.Name,
+                Price = p.Price,
+                Description = p.Description,
+                Features = p.Features
+            }).ToList()
+
         };
 
         return View(vm);
@@ -54,7 +65,7 @@ public class MembershipController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Create(
-        string membershipType,
+        MembershipType membershipType,
         CancellationToken ct)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;

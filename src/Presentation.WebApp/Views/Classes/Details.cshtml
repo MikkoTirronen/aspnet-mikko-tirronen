@@ -52,14 +52,14 @@
                 asp-action="Cancel"
                 asp-route-id="@Model.Id"
                 method="post">
-                <button class="btn btn-danger">
+                <button class="btn class-btn--danger">
                     Cancel Booking
                 </button>
             </form>
         }
         else if (Model.IsFull)
         {
-            <button class="btn btn-secondary" disabled>
+            <button class="btn class-btn--secondary" disabled>
                 Class Full
             </button>
         }
@@ -69,13 +69,13 @@
                 asp-action="Create"
                 asp-route-id="@Model.Id"
                 method="post">
-                <button class="btn btn-primary">
+                <button class="btn class-btn--primary">
                     Book Class
                 </button>
             </form>
         }
 
-        <a asp-action="Index" class="btn btn-outline-secondary">
+        <a asp-action="Index" class="btn class-btn--secondary">
             Back
         </a>
 

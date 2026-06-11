@@ -35,7 +35,7 @@
 
 .class-card__category {
     display: inline-block;
-    background: #D7FF3F;
+    background: var(--theme-color);
     padding: .5rem 1rem;
     border-radius: 999px;
     margin-bottom: 1rem;
@@ -49,10 +49,26 @@
     margin-top: auto;
     padding: 1rem;
     border-radius: 999px;
-    background: #D7FF3F;
+    background: var(--theme-color);
     color: black;
     text-decoration: none;
     font-weight: 700;
+}
+.class-btn,
+.class-btn--primary,
+.class-btn--danger,
+.class-btn--secondary {
+    padding: 1rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 160px;
 }
 
 /* =========================
@@ -113,6 +129,7 @@
 .value {
     font-weight: 500;
 }
+
 
 /* ACTIONS */
 .class-details__actions {
