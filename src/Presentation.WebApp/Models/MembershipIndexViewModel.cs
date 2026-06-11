@@ -5,7 +5,7 @@ namespace Presentation.WebApp.Models;
 
 public class MembershipIndexViewModel
 {
-    public MembershipDto? CurrentMembership { get; set; }
+    public MembershipViewModel? CurrentMembership { get; set; }
 
     public List<MembershipPlanViewModel> Plans { get; set; } = [];
 }

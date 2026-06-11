@@ -41,7 +41,13 @@ public class MembershipController : Controller
 
         var vm = new MembershipIndexViewModel
         {
-            CurrentMembership = membership,
+            CurrentMembership = membership == null ? null : new MembershipViewModel
+            {
+                MembershipType = membership.MembershipType,
+                IsActive = membership.IsActive,
+                StartDate = membership.StartDate ,
+                EndDate = membership.EndDate
+            },
 
             Plans = plans.Select(p => new MembershipPlanViewModel
             {
