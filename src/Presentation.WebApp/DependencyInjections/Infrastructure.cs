@@ -1,5 +1,7 @@
+using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +21,7 @@ public static class DependencyInjections
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+        services.AddScoped<IMembershipService, MembershipService>();
         return services;
     }
 }
