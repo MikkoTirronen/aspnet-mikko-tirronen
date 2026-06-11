@@ -13,4 +13,6 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Membership> Memberships { get; set; } = null!;
 
     public DbSet<GymClass> GymClasses { get; set; }
+    public DbSet<GymClassBooking> Bookings => Set<GymClassBooking>();
+
 }
