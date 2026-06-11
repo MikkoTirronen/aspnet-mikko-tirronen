@@ -39,6 +39,8 @@ public sealed class GetClassDetailsHandler
             query.ClassId,
             ct);
 
+        var booking = await _bookingRepo.GetByClassAndUserAsync(query.ClassId, query.UserId, ct);
+
         return new GymClassDetailsDto
         {
             Id = gymClass.Id,
@@ -48,7 +50,8 @@ public sealed class GetClassDetailsHandler
             Capacity = gymClass.Capacity,
             Category = gymClass.Category,
             BookedCount = bookedCount,
-            IsBookedByUser = isBooked
+            IsBookedByUser = isBooked,
+            BookingId = booking?.Id
         };
     }
 }

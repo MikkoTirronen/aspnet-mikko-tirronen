@@ -28,12 +28,16 @@ public class BookingRepository : IBookingRepository
             .CountAsync(x => x.GymClassId == classId, ct);
     }
 
-    public Task<GymClassBooking?> GetAsync(Guid classId, string userId, CancellationToken ct)
+    public Task<GymClassBooking?> GetByIdAsync(Guid bookingId, CancellationToken ct)
+    {
+        return _context.Bookings
+            .FirstOrDefaultAsync(x => x.Id == bookingId, ct);
+    }
+    public Task<GymClassBooking?> GetByClassAndUserAsync(Guid classId, string userId, CancellationToken ct)
     {
         return _context.Bookings
             .FirstOrDefaultAsync(x => x.GymClassId == classId && x.UserId == userId, ct);
     }
-
     public async Task AddAsync(GymClassBooking booking, CancellationToken ct)
     {
         await _context.Bookings.AddAsync(booking, ct);

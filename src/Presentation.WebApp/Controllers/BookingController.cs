@@ -29,10 +29,12 @@ public class BookingController : Controller
     [HttpPost]
     public async Task<IActionResult> Cancel(Guid id, CancellationToken ct)
     {
+
+        var bookingId = id;
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        await _dispatcher.Send(new CancelBookingCommand(id, userId), ct);
+        var result = await _dispatcher.Send(new CancelBookingCommand(bookingId, userId), ct);
 
-        return RedirectToAction("Details", "Classes", new { id });
+        return RedirectToAction("Details", "Classes", new { id = result.Value });
     }
 }

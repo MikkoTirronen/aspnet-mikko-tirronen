@@ -20,19 +20,18 @@ public sealed class CancelBookingHandler
     }
 
     public async Task<Result<Guid>> Handle(CancelBookingCommand command, CancellationToken ct)
-    {
-        var booking = await _bookingRepo.GetAsync(
-            command.ClassId,
-            command.UserId,
-            ct);
+{
+    var booking = await _bookingRepo.GetByIdAsync(command.BookingId, ct);
 
-        if (booking is null)
-            return Result<Guid>.Fail("Booking not found");
+    if (booking is null)
+        return Result<Guid>.Fail("Booking not found");
 
-        await _bookingRepo.RemoveAsync(booking, ct);
+    if (booking.UserId != command.UserId)
+        return Result<Guid>.Fail("Not allowed to cancel this booking");
 
-        await _uow.SaveChangesAsync(ct);
+    await _bookingRepo.RemoveAsync(booking, ct);
+    await _uow.SaveChangesAsync(ct);
 
-        return Result<Guid>.Ok(command.ClassId);
-    }
+    return Result<Guid>.Ok(booking.GymClassId);
+}
 }

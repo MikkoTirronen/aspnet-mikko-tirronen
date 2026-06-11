@@ -9,4 +9,6 @@ public record GymClassDetailsDto
     public string Category { get; init; } = null!;
     public int BookedCount { get; init; }
     public bool IsBookedByUser { get; init; }
+
+    public Guid? BookingId { get; set; } 
 }

@@ -64,7 +64,8 @@ public class ClassesController : Controller
             Capacity = gymClass.Capacity,
             Category = gymClass.Category,
             BookedCount = gymClass.BookedCount,
-            IsBookedByUser = gymClass.IsBookedByUser
+            IsBookedByUser = gymClass.IsBookedByUser,
+            BookingId = gymClass.BookingId
         };
 
         return View(vm);

@@ -7,8 +7,8 @@ public interface IBookingRepository
     Task<bool> ExistsAsync(Guid classId, string userId, CancellationToken ct);
     Task<int> CountByClassAsync(Guid classId, CancellationToken ct);
 
-    Task<GymClassBooking?> GetAsync(Guid classId, string userId, CancellationToken ct);
-
+    Task<GymClassBooking?> GetByIdAsync(Guid bookingId, CancellationToken ct);
+    Task<GymClassBooking?> GetByClassAndUserAsync(Guid classId, string userId, CancellationToken ct);
     Task AddAsync(GymClassBooking booking, CancellationToken ct);
     Task RemoveAsync(GymClassBooking booking, CancellationToken ct);
 

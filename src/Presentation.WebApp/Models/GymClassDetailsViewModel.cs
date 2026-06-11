@@ -13,4 +13,5 @@ public class GymClassDetailsViewModel
     public int BookedCount { get; set; }
     public bool IsFull => BookedCount >= Capacity;
     public bool IsBookedByUser { get; set; }
+    public Guid? BookingId { get; set; }
 }
