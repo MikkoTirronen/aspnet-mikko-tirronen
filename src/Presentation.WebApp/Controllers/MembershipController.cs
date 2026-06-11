@@ -1,10 +1,8 @@
 using System.Security.Claims;
 using Application.Abstractions.Commands;
 using Application.Abstractions.Queries;
-using Application.Common.Interfaces;
 using Application.Features.Memberships.CreateMembership;
 using Application.Features.Memberships.GetMembership;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
