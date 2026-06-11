@@ -1,30 +1,26 @@
 using System.Security.Claims;
-using Application.Common.Interfaces;
+using Application.Abstractions.Commands;
+using Application.Features.Bookings.BookClass;
+using Application.Features.Bookings.CancelBooking;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Presentation.WebApp.Controllers;
 
 public class BookingController : Controller
 {
-    private readonly IBookingService _bookingService;
+    private readonly ICommandDispatcher _dispatcher;
 
-    public BookingController(IBookingService bookingService)
+    public BookingController(ICommandDispatcher dispatcher)
     {
-        _bookingService = bookingService;
+        _dispatcher = dispatcher;
     }
 
     [Authorize]
     public async Task<IActionResult> Create(Guid id, CancellationToken ct)
     {
-        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        if (userIdString is null)
-            return Unauthorized();
-
-        if (!Guid.TryParse(userIdString, out var userId))
-            return Unauthorized();
-
-        await _bookingService.BookAsync(id, userId, ct);
+        await _dispatcher.Send(new BookClassCommand(id, userId), ct);
 
         return RedirectToAction("Index", "Classes");
     }
@@ -35,7 +31,7 @@ public class BookingController : Controller
     {
         var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        await _bookingService.CancelAsync(id, userId, ct);
+        await _dispatcher.Send(new CancelBookingCommand(id, userId), ct);
 
         return RedirectToAction("Details", "Classes", new { id });
     }
