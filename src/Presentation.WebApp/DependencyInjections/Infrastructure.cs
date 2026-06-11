@@ -22,6 +22,8 @@ public static class DependencyInjections
             .AddDefaultTokenProviders();
 
         services.AddScoped<IMembershipService, MembershipService>();
+        services.AddScoped<IGymClassService, GymClassService>();
+        
         return services;
     }
 }
