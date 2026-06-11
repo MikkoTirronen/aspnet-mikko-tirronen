@@ -48,6 +48,7 @@
 
         @if (Model.IsBookedByUser)
         {
+            <p>DEBUG: @Model.Id</p>
             <form asp-controller="Booking"
                 asp-action="Cancel"
                 asp-route-id="@Model.Id"
