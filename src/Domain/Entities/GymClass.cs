@@ -7,13 +7,18 @@ public class GymClass
     public string Instructor { get; private set; } = string.Empty;
     public DateTime StartTime { get; private set; }
     public int Capacity { get; private set; }
+    public string Category { get; private set; }
+
     private GymClass() { }
 
-    public GymClass(string name, string instructor, DateTime startTime, int capacity)
+    public GymClass(string name, string instructor, DateTime startTime, int capacity, string category)
     {
         Name = name;
         Instructor = instructor;
-        StartTime = startTime;
+        StartTime = DateTime.SpecifyKind(startTime, DateTimeKind.Utc);
         Capacity = capacity;
+        Category = category;
     }
+
+
 }
