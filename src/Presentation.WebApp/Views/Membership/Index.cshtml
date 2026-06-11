@@ -64,11 +64,12 @@
         </div>
 
         <ul class="membership-features">
+            
             <li>✔ Unlimited class access</li>
             <li>✔ Priority booking</li>
             <li>✔ Member-only content</li>
         </ul>
-            @if (Model.CurrentMembership.MembershipType == "Basic")
+            @if (Model.CurrentMembership.MembershipType == Domain.Enums.MembershipType.Basic)
             {
                 <a asp-controller="" class="btn">Upgrade to View Classes</a>                
             }
