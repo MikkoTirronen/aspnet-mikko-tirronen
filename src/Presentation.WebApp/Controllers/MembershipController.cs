@@ -45,6 +45,7 @@ public class MembershipController : Controller
 
             Plans = plans.Select(p => new MembershipPlanViewModel
             {
+                MembershipType = p.MembershipType,
                 Name = p.Name,
                 Price = p.Price,
                 Description = p.Description,
