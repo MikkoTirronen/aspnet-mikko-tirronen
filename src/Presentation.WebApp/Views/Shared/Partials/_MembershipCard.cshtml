@@ -1,0 +1,39 @@
+@model Presentation.WebApp.Models.MembershipPlanViewModel
+
+<div class="membership-card">
+
+    <div class="membership-card__top">
+
+        <h2>@Model.Name</h2>
+
+        <div class="membership-price">
+            @Model.Price kr
+        </div>
+
+        <p>@Model.Description</p>
+
+    </div>
+
+    <ul class="membership-features">
+
+        @foreach(var feature in Model.Features)
+        {
+            <li>✓ @feature</li>
+        }
+
+    </ul>
+
+    <form asp-action="Create" method="post">
+
+        <input
+            type="hidden"
+            name="membershipType"
+            value="@Model.Name" />
+
+        <button class="membership-btn">
+            Choose Plan
+        </button>
+
+    </form>
+
+</div>
