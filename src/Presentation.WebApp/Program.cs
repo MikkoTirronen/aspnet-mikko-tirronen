@@ -1,11 +1,16 @@
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
-using Presentation.WebApp.DependencyInjections;
+
+using Presentation.WebApp.DependencyInjections.Application;
+using Presentation.WebApp.DependencyInjections.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(
+    builder.Configuration.GetConnectionString("DefaultConnection")!
+);
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
