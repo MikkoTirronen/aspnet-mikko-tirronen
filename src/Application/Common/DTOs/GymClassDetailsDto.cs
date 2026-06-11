@@ -1,3 +1,4 @@
+namespace Application.Common.DTOs;
 public record GymClassDetailsDto
 {
     public Guid Id { get; init; }
