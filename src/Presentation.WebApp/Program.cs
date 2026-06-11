@@ -1,3 +1,5 @@
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
 using Presentation.WebApp.DependencyInjections;
 
@@ -20,6 +22,12 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    GymClassSeeder.Seed(db);
 }
 
 app.UseHttpsRedirection();
