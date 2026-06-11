@@ -10,6 +10,8 @@ using Application.Features.Memberships.CreateMembership;
 using Application.Features.Bookings.BookClass;
 using Application.Features.GymClasses.GetAllClasses;
 using Application.Features.Bookings.CancelBooking;
+using Application.Abstractions.Services;
+using Application.Features.Memberships.Services;
 
 namespace Presentation.WebApp.DependencyInjections.Application;
 
@@ -33,6 +35,8 @@ public static class DependencyInjection
         //Booking
         services.AddScoped<ICommandHandler<BookClassCommand, bool>, BookClassHandler>();
         services.AddScoped<ICommandHandler<CancelBookingCommand, bool>, CancelBookingHandler>();
+
+        services.AddScoped<IMembershipPlanService, MembershipPlanService>();
         return services;
     }
 }
