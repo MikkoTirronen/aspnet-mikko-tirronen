@@ -42,7 +42,7 @@ public class GetUserProfileQueryHandler
             FullName = user.FullName,
             Email = user.Email ?? "",
 
-            MembershipType = membership?.MembershipType.ToString(),
+            MembershipType = membership?.MembershipType,
             HasActiveMembership = membership?.IsActive ?? false,
 
             StartDate = membership?.StartDate,
