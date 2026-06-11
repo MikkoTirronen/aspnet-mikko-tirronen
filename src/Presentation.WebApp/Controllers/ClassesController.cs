@@ -1,5 +1,8 @@
 using System.Security.Claims;
+using Application.Abstractions.Queries;
 using Application.Common.Interfaces;
+using Application.Features.GymClasses.GetAllClasses;
+using Application.Features.GymClasses.GetClassDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
@@ -7,15 +10,20 @@ using Presentation.WebApp.Models;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class ClassesController(IGymClassService gymClassService) : Controller
+public class ClassesController : Controller
 {
-    private readonly IGymClassService _gymClassService = gymClassService;
+    private readonly IQueryDispatcher _queries;
 
-    public async Task<IActionResult> Index(
-        CancellationToken ct
-    )
+    public ClassesController(IQueryDispatcher queries)
     {
-        var classes = await _gymClassService.GetAllAsync(ct);
+        _queries = queries;
+    }
+
+    public async Task<IActionResult> Index(CancellationToken ct)
+    {
+        var classes = await _queries.Send(
+            new GetAllClassesQuery(),
+            ct);
 
         var vm = new GymClassesViewModel
         {
@@ -33,15 +41,16 @@ public class ClassesController(IGymClassService gymClassService) : Controller
         return View(vm);
     }
 
-    [Authorize]
     public async Task<IActionResult> Details(Guid id, CancellationToken ct)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (userId is null)
-            throw new NullReferenceException("Login to see details");
+        if (userIdString is null)
+            return Unauthorized();
 
-        var gymClass = await _gymClassService.GetDetailsAsync(id, userId, ct);
+        var gymClass = await _queries.Send(
+            new GetClassDetailsQuery(id, userIdString),
+            ct);
 
         if (gymClass is null)
             return NotFound();

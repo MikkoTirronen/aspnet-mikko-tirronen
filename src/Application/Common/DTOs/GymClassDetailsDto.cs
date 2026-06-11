@@ -1,3 +1,4 @@
+namespace Application.Common.DTOs;
 public record GymClassDetailsDto
 {
     public Guid Id { get; init; }
@@ -5,7 +6,7 @@ public record GymClassDetailsDto
     public string Instructor { get; init; } = "";
     public DateTime StartTime { get; init; }
     public int Capacity { get; init; }
-    public string Category { get; init; }
+    public string Category { get; init; } = null!;
     public int BookedCount { get; init; }
     public bool IsBookedByUser { get; init; }
 }
