@@ -1,7 +1,11 @@
 using System.Security.Claims;
+using Application.Abstractions.Commands;
 using Application.Abstractions.Queries;
+using Application.Features.Profile.DeleteAccount;
 using Application.Features.Profile.GetUserProfile;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
 
@@ -11,10 +15,14 @@ namespace Presentation.WebApp.Controllers;
 public class ProfileController : Controller
 {
     private readonly IQueryDispatcher _dispatcher;
+    private readonly ICommandDispatcher _handler;
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public ProfileController(IQueryDispatcher dispatcher)
+    public ProfileController(IQueryDispatcher dispatcher, ICommandDispatcher handler, SignInManager<ApplicationUser> signInManager)
     {
         _dispatcher = dispatcher;
+        _handler = handler;
+        _signInManager = signInManager;
     }
 
     public async Task<IActionResult> Index(CancellationToken ct)
@@ -46,5 +54,28 @@ public class ProfileController : Controller
             }).ToList()
         };
         return View(vm);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteAccount(
+    CancellationToken ct)
+    {
+        var userId = User.FindFirstValue(
+            ClaimTypes.NameIdentifier);
+
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await _handler.Send(
+            new DeleteAccountCommand(userId),
+            ct);
+
+        if (!result)
+            return BadRequest();
+
+        await _signInManager.SignOutAsync();
+
+        return RedirectToAction("Index", "Home");
     }
 }

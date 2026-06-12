@@ -56,4 +56,13 @@ public class BookingRepository : IBookingRepository
             .Where(x => x.UserId == userId)
             .ToListAsync(ct);
     }
+
+    public async Task RemoveByUserIdAsync(string userId, CancellationToken ct)
+{
+    var bookings = await _context.Bookings
+        .Where(x => x.UserId == userId)
+        .ToListAsync(ct);
+
+    _context.Bookings.RemoveRange(bookings);
+}
 }
