@@ -7,7 +7,7 @@ public class GymClassBooking
     public Guid GymClassId { get; private set; }
     public GymClass GymClass { get; private set; } = null!;
 
-    public string UserId { get; private set; }
+    public string UserId { get; private set; } = null!;
 
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

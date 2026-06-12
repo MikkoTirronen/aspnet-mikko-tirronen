@@ -11,6 +11,6 @@ public interface IBookingRepository
     Task<GymClassBooking?> GetByClassAndUserAsync(Guid classId, string userId, CancellationToken ct);
     Task AddAsync(GymClassBooking booking, CancellationToken ct);
     Task RemoveAsync(GymClassBooking booking, CancellationToken ct);
-
+    Task RemoveByUserIdAsync(string userId, CancellationToken ct);
     Task<List<GymClassBooking>> GetUserBookings(string userId, CancellationToken ct);
 }

@@ -30,4 +30,13 @@ public class MembershipRepository : IMembershipRepository
         _context.Memberships.Add(membership);
         await _context.SaveChangesAsync(ct);
     }
+    
+    public async Task RemoveByUserIdAsync(string userId, CancellationToken ct)
+{
+    var memberships = await _context.Memberships
+        .Where(x => x.UserId == userId)
+        .ToListAsync(ct);
+
+    _context.Memberships.RemoveRange(memberships);
+}
 }

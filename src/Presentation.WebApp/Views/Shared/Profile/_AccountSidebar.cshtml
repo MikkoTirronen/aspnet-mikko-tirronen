@@ -36,8 +36,17 @@
         If you like to cancel your account click below
     </p>
 
-    <button class="remove-account-button" type="button">
+    <form asp-controller="Profile"
+      asp-action="DeleteAccount"
+      method="post"
+      onsubmit="return confirm('Are you sure you want to permanently delete your account?');">
+
+    @Html.AntiForgeryToken()
+
+    <button class="remove-account-button" type="submit">
         Remove Account
     </button>
+
+</form>
 
 </div>

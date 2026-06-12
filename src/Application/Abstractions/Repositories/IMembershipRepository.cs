@@ -7,4 +7,5 @@ public interface IMembershipRepository
     Task<Membership?> GetByUserIdAsync(string userId, CancellationToken ct);
     Task<bool> ExistsByUserIdAsync(string userId, CancellationToken ct);
     Task AddAsync(Membership membership, CancellationToken ct);
+    Task RemoveByUserIdAsync(string userId, CancellationToken ct);
 }
