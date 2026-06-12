@@ -1,0 +1,134 @@
+/* =========================
+   PROFILE WRAPPER
+========================= */
+
+.profile-page {
+    max-width: 1100px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* =========================
+   USER CARD
+========================= */
+
+.profile-user-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.profile-user-info h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--heading-color);
+}
+
+.profile-user-info p {
+    margin: .25rem 0 0;
+    color: var(--text-color);
+}
+
+.profile-user-badge {
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    background: #D7FF3F;
+    font-weight: 700;
+    font-size: .85rem;
+    color: #111;
+}
+
+/* =========================
+   BOOKINGS SECTION
+========================= */
+
+.profile-bookings {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.profile-bookings h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+/* BOOKING LIST */
+.booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* SINGLE BOOKING CARD */
+.booking-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 1.25rem;
+    border-radius: 16px;
+    background: #f9fafb;
+    border: 1px solid #eee;
+
+    transition: .2s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+.booking-main {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.booking-title {
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+.booking-time {
+    font-size: .9rem;
+    color: var(--text-color);
+}
+
+.booking-actions {
+    display: flex;
+    gap: .5rem;
+}
+
+/* BUTTONS */
+.btn-danger {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background: #e63c3c;
+}
+
+.btn-outline {
+    border: 1px solid #ddd;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+}

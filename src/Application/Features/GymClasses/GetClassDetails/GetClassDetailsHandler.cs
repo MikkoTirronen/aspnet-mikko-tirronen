@@ -27,17 +27,19 @@ public sealed class GetClassDetailsHandler
         if (gymClass is null)
             return null;
 
-        if (!Guid.TryParse(query.UserId, out var userId))
+        if (query.UserId is null)
             return null;
 
         var isBooked = await _bookingRepo.ExistsAsync(
             query.ClassId,
-            userId,
+            query.UserId,
             ct);
 
         var bookedCount = await _bookingRepo.CountByClassAsync(
             query.ClassId,
             ct);
+
+        var booking = await _bookingRepo.GetByClassAndUserAsync(query.ClassId, query.UserId, ct);
 
         return new GymClassDetailsDto
         {
@@ -48,7 +50,8 @@ public sealed class GetClassDetailsHandler
             Capacity = gymClass.Capacity,
             Category = gymClass.Category,
             BookedCount = bookedCount,
-            IsBookedByUser = isBooked
+            IsBookedByUser = isBooked,
+            BookingId = booking?.Id
         };
     }
 }

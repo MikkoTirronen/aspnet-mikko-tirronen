@@ -16,7 +16,7 @@ public class BookingRepository : IBookingRepository
         _context = context;
     }
 
-    public Task<bool> ExistsAsync(Guid classId, Guid userId, CancellationToken ct)
+    public Task<bool> ExistsAsync(Guid classId, string userId, CancellationToken ct)
     {
         return _context.Bookings
             .AnyAsync(x => x.GymClassId == classId && x.UserId == userId, ct);
@@ -28,12 +28,16 @@ public class BookingRepository : IBookingRepository
             .CountAsync(x => x.GymClassId == classId, ct);
     }
 
-    public Task<GymClassBooking?> GetAsync(Guid classId, Guid userId, CancellationToken ct)
+    public Task<GymClassBooking?> GetByIdAsync(Guid bookingId, CancellationToken ct)
+    {
+        return _context.Bookings
+            .FirstOrDefaultAsync(x => x.Id == bookingId, ct);
+    }
+    public Task<GymClassBooking?> GetByClassAndUserAsync(Guid classId, string userId, CancellationToken ct)
     {
         return _context.Bookings
             .FirstOrDefaultAsync(x => x.GymClassId == classId && x.UserId == userId, ct);
     }
-
     public async Task AddAsync(GymClassBooking booking, CancellationToken ct)
     {
         await _context.Bookings.AddAsync(booking, ct);
@@ -43,5 +47,13 @@ public class BookingRepository : IBookingRepository
     {
         _context.Bookings.Remove(booking);
         return Task.CompletedTask;
+    }
+
+    public Task<List<GymClassBooking>> GetUserBookings(string userId, CancellationToken ct)
+    {
+        return _context.Bookings
+            .Include(x => x.GymClass)
+            .Where(x => x.UserId == userId)
+            .ToListAsync(ct);
     }
 }

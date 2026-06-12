@@ -18,7 +18,7 @@ public class BookingController : Controller
     [Authorize]
     public async Task<IActionResult> Create(Guid id, CancellationToken ct)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         await _dispatcher.Send(new BookClassCommand(id, userId), ct);
 
@@ -29,10 +29,12 @@ public class BookingController : Controller
     [HttpPost]
     public async Task<IActionResult> Cancel(Guid id, CancellationToken ct)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        await _dispatcher.Send(new CancelBookingCommand(id, userId), ct);
+        var bookingId = id;
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        return RedirectToAction("Details", "Classes", new { id });
+        var result = await _dispatcher.Send(new CancelBookingCommand(bookingId, userId), ct);
+
+        return RedirectToAction("Details", "Classes", new { id = result.Value });
     }
 }

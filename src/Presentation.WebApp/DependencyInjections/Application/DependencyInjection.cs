@@ -12,6 +12,10 @@ using Application.Features.GymClasses.GetAllClasses;
 using Application.Features.Bookings.CancelBooking;
 using Application.Abstractions.Services;
 using Application.Features.Memberships.Services;
+using Application.Features.Profile.GetUserProfile;
+using Application.Features.Profile;
+using Infrastructure.Identity;
+using Application.Common.Results;
 
 namespace Presentation.WebApp.DependencyInjections.Application;
 
@@ -34,9 +38,15 @@ public static class DependencyInjection
 
         //Booking
         services.AddScoped<ICommandHandler<BookClassCommand, bool>, BookClassHandler>();
-        services.AddScoped<ICommandHandler<CancelBookingCommand, bool>, CancelBookingHandler>();
+        services.AddScoped<ICommandHandler<CancelBookingCommand, Result<Guid>>, CancelBookingHandler>();
 
         services.AddScoped<IMembershipPlanService, MembershipPlanService>();
+
+        services.AddScoped<IQueryHandler<GetUserProfileQuery, UserProfileDto>,
+            GetUserProfileQueryHandler>();
+
+        services.AddScoped<IUserService, UserService>();
+
         return services;
     }
 }

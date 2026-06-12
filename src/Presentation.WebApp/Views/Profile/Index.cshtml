@@ -1,0 +1,23 @@
+@model UserProfileViewModel
+
+<div class="profile-page">
+
+    <h1>My Profile</h1>
+
+    <div class="profile-card">
+        <p><strong>Name:</strong> @Model.FullName Banana Joe</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+    </div>
+
+    <h2>My Membership</h2>
+
+    @if (Model.Membership != null)
+    {
+        <partial name="Partials/_MembershipStatus" model="Model.Membership" />
+    }
+
+    <h2>My Bookings</h2>
+
+    <partial name="Partials/_BookingList" model="Model.Bookings" />
+
+</div>

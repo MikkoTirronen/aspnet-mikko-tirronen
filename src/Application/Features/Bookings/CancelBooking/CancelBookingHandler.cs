@@ -1,11 +1,12 @@
 using Application.Abstractions.Commands;
 using Application.Abstractions.Repositories;
 using Application.Abstractions.UnitOfWork;
+using Application.Common.Results;
 
 namespace Application.Features.Bookings.CancelBooking;
 
 public sealed class CancelBookingHandler
-    : ICommandHandler<CancelBookingCommand, bool>
+    : ICommandHandler<CancelBookingCommand, Result<Guid>>
 {
     private readonly IBookingRepository _bookingRepo;
     private readonly IUnitOfWork _uow;
@@ -18,20 +19,19 @@ public sealed class CancelBookingHandler
         _uow = unitOfWork;
     }
 
-    public async Task<bool> Handle(CancelBookingCommand command, CancellationToken ct)
-    {
-        var booking = await _bookingRepo.GetAsync(
-            command.ClassId,
-            command.UserId,
-            ct);
+    public async Task<Result<Guid>> Handle(CancelBookingCommand command, CancellationToken ct)
+{
+    var booking = await _bookingRepo.GetByIdAsync(command.BookingId, ct);
 
-        if (booking is null)
-            return false;
+    if (booking is null)
+        return Result<Guid>.Fail("Booking not found");
 
-        await _bookingRepo.RemoveAsync(booking, ct);
+    if (booking.UserId != command.UserId)
+        return Result<Guid>.Fail("Not allowed to cancel this booking");
 
-        await _uow.SaveChangesAsync(ct);
+    await _bookingRepo.RemoveAsync(booking, ct);
+    await _uow.SaveChangesAsync(ct);
 
-        return true;
-    }
+    return Result<Guid>.Ok(booking.GymClassId);
+}
 }

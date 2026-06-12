@@ -48,11 +48,12 @@
 
         @if (Model.IsBookedByUser)
         {
+            <p>DEBUG: @Model.BookingId</p>
             <form asp-controller="Booking"
                 asp-action="Cancel"
-                asp-route-id="@Model.Id"
+                asp-route-id="@Model.BookingId"
                 method="post">
-                <button class="btn class-btn--danger">
+                <button type="submit" class="btn class-btn--danger">
                     Cancel Booking
                 </button>
             </form>

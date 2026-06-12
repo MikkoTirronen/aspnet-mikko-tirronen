@@ -7,5 +7,6 @@ public sealed record MembershipDto(
     string UserId,
     MembershipType MembershipType,
     DateTime StartDate,
+    DateTime EndDate,
     bool IsActive
 );
