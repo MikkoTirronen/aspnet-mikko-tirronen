@@ -1,0 +1,30 @@
+.brand-strip {
+    background: var(--theme-color);
+
+    min-height: 120px;
+
+    display: flex;
+    align-items: center;
+}
+
+.brand-strip__container {
+    max-width: 1600px;
+
+    width: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    gap: 4rem;
+
+    padding: 0 3rem;
+}
+
+.brand-strip__container img {
+    height: 45px;
+    width: auto;
+
+    object-fit: contain;
+}

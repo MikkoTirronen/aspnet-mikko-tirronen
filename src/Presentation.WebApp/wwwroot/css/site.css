@@ -35,6 +35,10 @@
     --button-accent-background-hover-color: var(--white-color);
     --button-accent-border-hover-color: var(--white-color);
     --button-accent-text-hover-color: var(--dark-color);
+
+    --navbar-bg: var(--dark-color);
+    --navbar-text: var(--color-white);
+    --navbar-accent: var(--theme-color);
 }
 *,*::before,*::after{
   box-sizing: border-box;
@@ -74,7 +78,18 @@ header{
   padding: 0;
  }
 }
-.section__header{
+
+.home-hero-shell {
+    width: 100%;
+    min-height: 855px;
+
+    background-color: var(--dark-color);
+    background-image: url("../images/dark-section-img.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/* .section__header{
   display:grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -227,4 +242,4 @@ header{
     }
 }
 
-
+ */
