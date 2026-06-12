@@ -1,23 +1,54 @@
 @model UserProfileViewModel
 
-<div class="profile-page">
+@{
+    ViewData["Title"] = "My Account";
+}
 
-    <h1>My Profile</h1>
+<section class="account-page">
 
-    <div class="profile-card">
-        <p><strong>Name:</strong> @Model.FullName Banana Joe</p>
-        <p><strong>Email:</strong> @Model.Email</p>
+    <h1>My Account</h1>
+
+    <div class="account-layout">
+
+        <partial name="~/Views/Shared/Profile/_AccountSidebar.cshtml" />
+
+        <div class="account-main">
+
+            <input type="radio" name="account-tab" id="about-tab" checked />
+            <input type="radio" name="account-tab" id="membership-tab" />
+            <input type="radio" name="account-tab" id="bookings-tab" />
+
+            <div class="tab-panel about-panel">
+
+                <partial name="~/Views/Shared/Profile/_AboutMeForm.cshtml" model="Model" />
+
+                <partial name="~/Views/Shared/Profile/_AccountStats.cshtml" model="Model" />
+
+            </div>
+
+            <div class="tab-panel membership-panel">
+
+                <h2>My Membership</h2>
+
+                @if (Model.Membership is not null)
+                {
+                    <partial name="Partials/_MembershipStatus" model="Model.Membership" />
+                }
+                else
+                {
+                    <p>You do not have an active membership.</p>
+                }
+
+            </div>
+
+            <div class="tab-panel bookings-panel">
+
+                <partial name="~/Views/Shared/Profile/_MyBookings.cshtml" model="Model.Bookings" />
+
+            </div>
+
+        </div>
+
     </div>
 
-    <h2>My Membership</h2>
-
-    @if (Model.Membership != null)
-    {
-        <partial name="Partials/_MembershipStatus" model="Model.Membership" />
-    }
-
-    <h2>My Bookings</h2>
-
-    <partial name="Partials/_BookingList" model="Model.Bookings" />
-
-</div>
+</section>
