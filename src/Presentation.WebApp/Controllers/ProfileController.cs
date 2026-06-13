@@ -3,6 +3,7 @@ using Application.Abstractions.Commands;
 using Application.Abstractions.Queries;
 using Application.Features.Profile.DeleteAccount;
 using Application.Features.Profile.GetUserProfile;
+using Application.Features.Profile.UpdateProfile;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -33,9 +34,14 @@ public class ProfileController : Controller
             new GetUserProfileQuery(userId),
             ct);
 
+        if (dto is null)
+            return NotFound();
+
         var vm = new UserProfileViewModel
         {
-            FullName = dto.FullName,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            PhoneNumber = dto.PhoneNumber,
             Email = dto.Email,
 
             Membership = new MembershipViewModel
@@ -56,6 +62,40 @@ public class ProfileController : Controller
         return View(vm);
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(
+        UserProfileViewModel model,
+        CancellationToken ct)
+    {
+        if (!ModelState.IsValid)
+            return View("Index", model);
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await _handler.Send(
+            new UpdateProfileCommand(
+                userId,
+                model.FirstName,
+                model.LastName,
+                model.Email,
+                model.PhoneNumber??""),
+            ct);
+
+        if (!result)
+        {
+            ModelState.AddModelError("", "Could not update profile.");
+            return View("Index", model);
+        }
+
+        TempData["Success"] = "Profile updated.";
+
+        return RedirectToAction(nameof(Index));
+    }
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteAccount(

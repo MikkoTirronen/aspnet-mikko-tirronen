@@ -17,6 +17,7 @@ using Application.Features.Profile;
 using Infrastructure.Identity;
 using Application.Common.Results;
 using Application.Features.Profile.DeleteAccount;
+using Application.Features.Profile.UpdateProfile;
 
 namespace Presentation.WebApp.DependencyInjections.Application;
 
@@ -41,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<ICommandHandler<BookClassCommand, bool>, BookClassHandler>();
         services.AddScoped<ICommandHandler<CancelBookingCommand, Result<Guid>>, CancelBookingHandler>();
         services.AddScoped<ICommandHandler<DeleteAccountCommand, bool>, DeleteAccountHandler>();
+        services.AddScoped<ICommandHandler<UpdateProfileCommand, bool>, UpdateProfileHandler>();
         services.AddScoped<IMembershipPlanService, MembershipPlanService>();
 
         services.AddScoped<IQueryHandler<GetUserProfileQuery, UserProfileDto>,
