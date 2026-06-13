@@ -2,7 +2,12 @@
 
 <div class="profile-user-card">
     <div class="profile-user-info">
-        <h1>@Model.FullName</h1>
-        <p>@Model.Email</p>
+        <h1>@Model.FirstName @Model.LastName</h1>
+        @if (@Model.PhoneNumber != null)
+        {
+            <p>@Model?.PhoneNumber
+            </p>            
+        }
+        <p>@Model?.Email</p>
     </div>
 </div>
