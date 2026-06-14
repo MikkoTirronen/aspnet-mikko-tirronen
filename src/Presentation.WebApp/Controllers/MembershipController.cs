@@ -70,22 +70,28 @@ public class MembershipController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(
-        MembershipType membershipType,
-        CancellationToken ct)
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create(
+    MembershipType membershipType,
+    CancellationToken ct)
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (userId is null)
+        return Unauthorized();
+
+    var success = await _commands.Send(
+        new CreateMembershipCommand(userId, membershipType),
+        ct);
+
+    if (!success)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-
-        var success = await _commands.Send(
-            new CreateMembershipCommand(userId, membershipType),
-            ct);
-
-        if (!success)
-        {
-            ModelState.AddModelError("", "Membership already exists");
-            return View();
-        }
-
+        TempData["Error"] = "You already have an active membership.";
         return RedirectToAction(nameof(Index));
     }
+
+    TempData["Success"] = "Membership created.";
+
+    return RedirectToAction(nameof(Index));
+}
 }

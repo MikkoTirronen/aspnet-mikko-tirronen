@@ -39,8 +39,10 @@ public class GetUserProfileQueryHandler
         return new UserProfileDto
         {
             UserId = user.Id,
-            FullName = user.FullName,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
             Email = user.Email ?? "",
+            PhoneNumber = user.PhoneNumber,
 
             MembershipType = membership?.MembershipType,
             HasActiveMembership = membership?.IsActive ?? false,

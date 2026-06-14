@@ -2,17 +2,7 @@
    HOME HERO
 =================================== */
 
-.home-hero-shell {
-    height: 855px;
 
-    background-color: var(--dark-color);
-    background-image: url("../images/dark-section-img.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-
-    color: var(--white-color);
-}
 
 .hero {
     height: 100%;
