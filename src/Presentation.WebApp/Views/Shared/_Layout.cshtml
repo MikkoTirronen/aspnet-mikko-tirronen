@@ -14,12 +14,25 @@
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/components/navbar.css" />
-    
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/membership.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/classes.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" /> *@
+    <link rel="stylesheet"
+      href="~/lib/fontawesome/css/all.min.css"
+      asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/home/hero.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/home/brandstrip.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/home/about.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/home/programs.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/home/store.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/footer.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/components/account/account.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
 </head>
 <body>
     <div class="layout">
-        <header>
+        
              @* @await Html.PartialAsync("Partials/_PublicNav") *@
              @* @if (User.Identity?.IsAuthenticated == true)
             {
@@ -29,12 +42,13 @@
             {
                 <partial name="Partials/_PublicNav" />
             } *@
-             <partial name  ="Partials/Common/_HeaderSection.cshtml"/> 
+             <partial name  ="~/Views/Shared/Navigation/_Header.cshtml"/> 
             @* @RenderSectionAsync("Hero", required:false) *@
-        </header>
+        
         <main>
             @RenderBody()
         </main>
+         
     </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

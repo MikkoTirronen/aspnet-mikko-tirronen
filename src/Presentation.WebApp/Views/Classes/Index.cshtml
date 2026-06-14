@@ -1,0 +1,27 @@
+@model Presentation.WebApp.Models.GymClassesViewModel
+
+<div class="classes-page">
+
+    <div class="classes-header">
+
+        <h1>Available Classes</h1>
+
+        <p>
+            Discover classes designed to improve
+            strength, endurance and flexibility.
+        </p>
+
+    </div>
+
+    <div class="classes-grid">
+
+        @foreach(var gymClass in Model.Classes)
+        {
+            <partial
+                name="Partials/_ClassCard"
+                model="gymClass" />
+        }
+
+    </div>
+
+</div>

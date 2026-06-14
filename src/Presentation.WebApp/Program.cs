@@ -1,9 +1,17 @@
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
-using Presentation.WebApp.DependencyInjections;
+
+using Presentation.WebApp.DependencyInjections.Application;
+using Presentation.WebApp.DependencyInjections.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(
+    builder.Configuration.GetConnectionString("DefaultConnection")!,
+    builder.Environment
+);
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -22,11 +30,17 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    GymClassSeeder.Seed(db);
+}
+
 app.UseHttpsRedirection();
 
 // ✅ MUST come early
 app.UseStaticFiles();
-
+app.UseStatusCodePagesWithReExecute("/404");
 app.UseRouting();
 
 // 🔐 REQUIRED for Identity (important even if you don’t use it yet)
