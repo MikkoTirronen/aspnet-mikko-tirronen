@@ -1,0 +1,40 @@
+<section class="section__header">
+    <div>
+        <a href="/"><img src="~/images/logotype.png" alt="CoreFitness LogoType" /></a>
+    </div>
+    <nav class="main-menu">
+        <ul class="menu">
+            <li class="menu-item">
+                <a class="menu-item-link" asp-action="Index" asp-controller="FitnessCenters">Fitness Centers</a>
+            </li>
+           <li class="menu-item">
+                <a class="menu-item-link" asp-action="Index" asp-controller="Membership">Memberships</a>
+            </li>
+           <li class="menu-item">
+                <a class="menu-item-link" asp-action="Index" asp-controller="Training">Training</a>      
+            </li>
+        </ul>
+    </nav>
+    <nav class="account-menu">
+    <ul class="menu">
+
+        <li class="menu-item">
+            <a class="menu-item-link"
+               asp-controller="Account"
+               asp-action="Register">
+                Become Member
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a class="btn accent"
+               asp-controller="Account"
+               asp-action="Login">
+                Sign In
+            </a>
+        </li>
+
+    </ul>
+</nav>
+    <button class="mobile-btn accent" id="mobile-menu-button" data-target="#mobile-menu-flyout"></button>
+</section>

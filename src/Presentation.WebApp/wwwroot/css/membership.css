@@ -25,29 +25,57 @@
     gap: 2rem;
 }
 
-/* Membership cards */
-
-.membership-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 2rem;
-    background: var(--white-color);
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.08);
-}
-
-.membership-card__top {
-    margin-bottom: 1rem;
-}
-
-.membership-card__top h2 {
+.membership-card__header h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
 }
 
-.membership-card__content {
-    flex: 1;
+.membership-card__content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.membership-card__content li {
+    margin-bottom: .75rem;
+}
+
+.membership-btn {
+    width: 100%;
+    margin-top: 2rem;
+
+    border: none;
+    border-radius: 999px;
+
+    padding: 1rem;
+
+    background: #D7FF3F;
+
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.membership-btn:hover {
+    transform: translateY(-2px);
+}
+
+.membership-status-card {
+    max-width: 700px;
+    margin: 5rem auto;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.membership-status {
+    display: inline-block;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    background: #D7FF3F;
+    font-weight: 600;
 }
 
 .membership-features {
@@ -67,27 +95,6 @@
     margin: 1rem 0;
 }
 
-.membership-card form {
-    margin-top: auto;
-}
-
-.membership-btn {
-    width: 100%;
-    border: none;
-    border-radius: 999px;
-    padding: 1rem;
-    background: #D7FF3F;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-.membership-btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Membership status page */
-
 .membership-status-wrapper {
     max-width: 1200px;
     margin: 4rem auto;
@@ -98,9 +105,6 @@
 }
 
 .membership-status-card {
-    position: relative;
-    overflow: hidden;
-
     max-width: 700px;
     margin: 5rem auto;
     background: var(--white-color);
@@ -121,14 +125,6 @@
     background: rgba(214, 235, 49, 0.25);
     border-radius: 50%;
     filter: blur(40px);
-}
-
-.membership-status {
-    display: inline-block;
-    padding: .5rem 1rem;
-    border-radius: 999px;
-    background: #D7FF3F;
-    font-weight: 600;
 }
 
 .membership-status-badge {

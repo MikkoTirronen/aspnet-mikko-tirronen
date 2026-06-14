@@ -36,32 +36,28 @@
         </div>
 
         <form asp-action="Login" method="post" class="auth-form">
+            <div asp-asp-validation-summary="All"></div>
+            
+            <label>Email Address *</label>
+            <input asp-for="Email" class="input" type="email" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email"></span>
+            <label class="password-row">
+                Password
+                <a href="#" class="forgot">Forgot password?</a>
+            </label>
 
-    <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+            <input asp-for="Password" class="input" type="password" placeholder="Enter Password" />
 
-    <label>Email Address *</label>
-    <input asp-for="Email"
-           class="input"
-           type="email"
-           placeholder="Enter Email Address" />
-    <span asp-validation-for="Email" class="text-red-500"></span>
+            <button type="submit" class="btn-primary">
+                Continue →
+            </button>
 
-    <label class="password-row">
-        Password
-        <a href="#" class="forgot">Forgot password?</a>
-    </label>
+            <div class="checkbox-row">
+                <input type="checkbox" />
+                <span>Accept user terms and conditions</span>
+            </div>
 
-    <input asp-for="Password"
-           class="input"
-           type="password"
-           placeholder="Enter Password" />
-    <span asp-validation-for="Password" class="text-red-500"></span>
-
-    <button type="submit" class="btn-primary">
-        Continue →
-    </button>
-
-</form>
+        </form>
 
     </div>
 
