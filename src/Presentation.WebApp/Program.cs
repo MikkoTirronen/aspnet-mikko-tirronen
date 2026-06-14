@@ -9,10 +9,13 @@ using Presentation.WebApp.DependencyInjections.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
+
 builder.Services.AddInfrastructure(
     builder.Configuration.GetConnectionString("DefaultConnection")!,
-    builder.Environment
+    builder.Environment,
+    builder.Configuration
 );
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
