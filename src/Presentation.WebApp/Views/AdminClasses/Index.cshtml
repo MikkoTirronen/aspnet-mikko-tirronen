@@ -1,0 +1,78 @@
+@model IEnumerable<Application.Common.DTOs.GymClassCardDto>
+
+@{
+    ViewData["Title"] = "Admin Classes";
+}
+
+<section class="admin-page">
+
+    <div class="admin-header">
+        <div>
+            <span class="section-pill">Admin</span>
+            <h1>Manage Classes</h1>
+        </div>
+
+        <a asp-controller="AdminClasses"
+           asp-action="Create"
+           class="admin-primary-btn">
+            Add New Class <span>›</span>
+        </a>
+    </div>
+
+    @if (TempData["Error"] is not null)
+    {
+        <div class="alert alert-error">
+            @TempData["Error"]
+        </div>
+    }
+
+    <div class="admin-table-card">
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Instructor</th>
+                    <th>Category</th>
+                    <th>Start Time</th>
+                    <th>Capacity</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Instructor</td>
+                        <td>@item.Category</td>
+                        <td>@item.StartTime.ToString("dd MMM yyyy HH:mm")</td>
+                        <td>@item.Capacity</td>
+                        <td class="admin-table-actions">
+                            <a asp-action="Edit"
+                               asp-route-id="@item.Id"
+                               class="admin-edit-btn">
+                                Edit
+                            </a>
+
+                            <form asp-action="Delete"
+                                  asp-route-id="@item.Id"
+                                  method="post"
+                                  onsubmit="return confirm('Delete this class?');">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit" class="admin-delete-btn">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
