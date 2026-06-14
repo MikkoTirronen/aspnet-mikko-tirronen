@@ -141,6 +141,28 @@ Member
 
 All newly registered users are automatically assigned the Member role.
 
+
+---
+
+## GitHub OAuth Notes
+
+GitHub OAuth requires the application to run over HTTPS.
+
+The OAuth application should be configured with:
+
+```text
+Homepage URL:
+https://localhost:7225
+
+Authorization callback URL:
+https://localhost:7225/signin-github
+```
+
+If the application is started using the HTTP profile, GitHub authentication will not function correctly.
+
+Run the HTTPS launch profile when testing GitHub login.
+
+
 ---
 
 # Architecture
@@ -174,7 +196,7 @@ Contains:
 * ASP.NET Identity
 * Repository Implementations
 * Database Configuration
-* GitHub OAuth Configuration
+* GitHub OAuth Configuration 
 
 ## Presentation.WebApp
 
