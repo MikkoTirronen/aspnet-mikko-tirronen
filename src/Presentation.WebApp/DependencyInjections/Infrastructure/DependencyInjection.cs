@@ -13,7 +13,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        string connectionString, IWebHostEnvironment environment)
+        string connectionString, IWebHostEnvironment environment, IConfiguration config)
     {
         if (environment.IsDevelopment())
         {
@@ -31,6 +31,22 @@ public static class DependencyInjection
             .AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+        var githubClientId = config["Authentication:GitHub:ClientId"];
+        var githubClientSecret = config["Authentication:GitHub:ClientSecret"];
+
+        if (!string.IsNullOrWhiteSpace(githubClientId) &&
+            !string.IsNullOrWhiteSpace(githubClientSecret))
+        {
+            services
+                .AddAuthentication()
+                .AddGitHub(options =>
+                {
+                    options.ClientId = githubClientId;
+                    options.ClientSecret = githubClientSecret;
+                    options.Scope.Add("user:email");
+                });
+        }
 
         services.AddScoped<IUnitOfWork>(sp =>
             sp.GetRequiredService<AppDbContext>());

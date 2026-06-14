@@ -2,7 +2,7 @@
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Claims;
 using Presentation.WebApp.Models;
 
 namespace Presentation.WebApp.Controllers;
@@ -112,4 +112,86 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
+
+    [HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult ExternalLogin(string provider)
+{
+    var redirectUrl = Url.Action(
+        nameof(ExternalLoginCallback),
+        "Account");
+
+    var properties = _signInManager.ConfigureExternalAuthenticationProperties(
+        provider,
+        redirectUrl);
+
+    return Challenge(properties, provider);
+}
+
+[HttpGet]
+public async Task<IActionResult> ExternalLoginCallback()
+{
+    var info = await _signInManager.GetExternalLoginInfoAsync();
+
+    if (info is null)
+    {
+        TempData["Error"] = "External login failed.";
+        return RedirectToAction(nameof(Login));
+    }
+
+    var signInResult = await _signInManager.ExternalLoginSignInAsync(
+        info.LoginProvider,
+        info.ProviderKey,
+        isPersistent: false,
+        bypassTwoFactor: true);
+
+    if (signInResult.Succeeded)
+        return RedirectToAction("Index", "Home");
+
+    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+    if (string.IsNullOrWhiteSpace(email))
+    {
+        TempData["Error"] = "GitHub did not provide an email address.";
+        return RedirectToAction(nameof(Login));
+    }
+
+    var user = await _userManager.FindByEmailAsync(email);
+
+    if (user is null)
+    {
+        user = new ApplicationUser
+        {
+            UserName = email,
+            Email = email,
+            EmailConfirmed = true,
+            FirstName = "",
+            LastName = ""
+        };
+
+        var createResult = await _userManager.CreateAsync(user);
+
+        if (!createResult.Succeeded)
+        {
+            foreach (var error in createResult.Errors)
+                ModelState.AddModelError("", error.Description);
+
+            return View(nameof(Login), new LoginViewModel());
+        }
+
+        await _userManager.AddToRoleAsync(user, "Member");
+    }
+
+    var addLoginResult = await _userManager.AddLoginAsync(user, info);
+
+    if (!addLoginResult.Succeeded)
+    {
+        TempData["Error"] = "Could not link GitHub login.";
+        return RedirectToAction(nameof(Login));
+    }
+
+    await _signInManager.SignInAsync(user, isPersistent: false);
+
+    return RedirectToAction("Index", "Home");
+}
 }
