@@ -39,7 +39,7 @@ app.UseHttpsRedirection();
 
 // ✅ MUST come early
 app.UseStaticFiles();
-
+app.UseStatusCodePagesWithReExecute("/404");
 app.UseRouting();
 
 // 🔐 REQUIRED for Identity (important even if you don’t use it yet)
