@@ -8,11 +8,38 @@ namespace Application.Features.Memberships.Services;
 public class MembershipPlanService : IMembershipPlanService
 {
     public static List<MembershipPlan> All =>
-    [
-        new() { Name = "Basic", Price = 299, Description = "Perfect for getting started.", Features= ["Gym Access", "Book Classes"] },
-        new() { Name = "Premium", Price = 499, Description = "Most popular plan.", Features=["Gym Access", "Book Classes", "Locker"] },
-        new() { Name = "Elite", Price = 799, Description = "Everything included.", Features=["Gym Access", "Priority Classes Booking", "Locker",  "Towel and Shower slippers", "Personal Trainer"] }
-    ];
+[
+    new()
+    {
+        MembershipType = Domain.Enums.MembershipType.Basic,
+        Name = "Standard Membership",
+        Price = 299,
+        Description = "Perfect for getting started with access to the gym and basic training support.",
+        Features =
+        [
+            "Gym Access",
+            "Fitness Assessment",
+            "General Workout Plan",
+            "Locker Room Access"
+        ]
+    },
+
+    new()
+    {
+        MembershipType = Domain.Enums.MembershipType.Premium,
+        Name = "Premium Membership",
+        Price = 499,
+        Description = "Best choice for members who want classes, guidance and extra support.",
+        Features =
+        [
+            "Everything in Standard",
+            "Book Group Classes",
+            "Priority Class Booking",
+            "Personal Training Support",
+            "Locker Access"
+        ]
+    }
+];
 
     public List<MembershipPlan> GetPlans()
     {

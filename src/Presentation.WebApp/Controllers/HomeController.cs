@@ -23,7 +23,7 @@ public class HomeController : Controller
     }
 
     [Route("404")]
-    public IActionResult NotFound()
+    public IActionResult NotFoundPage()
     {
         Response.StatusCode = 404;
         return View();
