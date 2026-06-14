@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Entities;
 
 public class GymClass
@@ -31,13 +33,13 @@ public class GymClass
     string category)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidOperationException("Class name is required.");
+            throw new DomainException("Class name is required.");
 
         if (string.IsNullOrWhiteSpace(instructor))
-            throw new InvalidOperationException("Instructor is required.");
+            throw new DomainException("Instructor is required.");
 
         if (capacity < _bookings.Count)
-            throw new InvalidOperationException("Capacity cannot be lower than current bookings.");
+            throw new DomainException("Capacity cannot be lower than current bookings.");
 
         Name = name;
         Instructor = instructor;
@@ -48,10 +50,10 @@ public class GymClass
     public void Book(string userId)
     {
         if (_bookings.Count >= Capacity)
-            throw new InvalidOperationException("Class is full");
+            throw new DomainException("Class is full");
 
         if (_bookings.Any(x => x.UserId == userId))
-            throw new InvalidOperationException("Already booked");
+            throw new DomainException("User already booked this class");
 
         _bookings.Add(new GymClassBooking(Id, userId));
     }
@@ -61,7 +63,7 @@ public class GymClass
         var booking = _bookings.FirstOrDefault(x => x.UserId == userId);
 
         if (booking is null)
-            return;
+            throw new DomainException("Booking not found.");
 
         _bookings.Remove(booking);
     }
