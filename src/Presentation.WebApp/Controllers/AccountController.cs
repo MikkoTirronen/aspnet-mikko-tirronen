@@ -40,7 +40,7 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
         return View(model);
 
     }
-    
+
     [HttpGet]
     public IActionResult Register()
     {
@@ -60,12 +60,12 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
     {
         var email = TempData["Email"]?.ToString();
 
-        if (email== null)
+        if (email == null)
             return RedirectToAction(nameof(Register));
 
         TempData.Keep("Email");
 
-        return View(new RegisterPasswordViewModel{Email = email});
+        return View(new RegisterPasswordViewModel { Email = email });
     }
 
     [HttpPost]
@@ -89,7 +89,10 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
 
         if (result.Succeeded)
         {
+            await _userManager.AddToRoleAsync(user, "Member");
+
             await _signInManager.SignInAsync(user, false);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -103,7 +106,7 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
 
     }
 
-     [HttpPost]
+    [HttpPost]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
