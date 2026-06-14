@@ -1,0 +1,65 @@
+<ul class="main-nav">
+
+    <li>
+        <a asp-controller="FitnessCenters"
+           asp-action="Index">
+            Fitness Centers
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Membership"
+           asp-action="Index">
+            Memberships
+        </a>
+    </li>
+
+    <li class="main-nav__dropdown">
+
+        <button type="button"
+                class="main-nav__dropdown-toggle">
+            Training
+        </button>
+
+        <ul class="main-nav__dropdown-menu">
+
+            <li>
+                <a asp-controller="Training"
+                   asp-action="PersonalTraining">
+                    Personal Training
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="Classes"
+                   asp-action="Index">
+                    Group Training
+                </a>
+            </li>
+
+            <li>
+                <a asp-controller="Training"
+                   asp-action="Padel">
+                    Padel
+                </a>
+            </li>
+
+        </ul>
+
+    </li>
+
+    <li>
+        <a asp-controller="CustomerService"
+           asp-action="Index">
+            Customer Service
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Store"
+           asp-action="Index">
+            Store
+        </a>
+    </li>
+
+</ul>

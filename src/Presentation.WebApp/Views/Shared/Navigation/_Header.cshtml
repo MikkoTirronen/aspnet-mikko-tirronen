@@ -1,0 +1,38 @@
+<header class="site-header">
+
+    <div class="site-header__inner">
+
+        <div class="site-header__logo">
+            <a asp-controller="Home" asp-action="Index">
+                <img src="~/images/logotype.png" alt="CoreFitness LogoType" />
+            </a>
+        </div>
+
+        <nav class="site-header__nav">
+            <partial name="~/Views/Shared/Navigation/_MainNavigation.cshtml" />
+        </nav>
+
+        <div class="site-header__actions">
+
+            <a asp-controller="Account"
+               asp-action="Register"
+               class="site-header__member">
+                Become Member
+            </a>
+
+            <partial name="~/Views/Shared/Navigation/_AccountLink.cshtml" />
+
+            <button class="site-header__burger"
+                    id="burgerButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <partial name="~/Views/Shared/Navigation/_MobileNavigation.cshtml" />
+
+</header>

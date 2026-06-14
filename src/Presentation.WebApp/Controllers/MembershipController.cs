@@ -1,6 +1,10 @@
 using System.Security.Claims;
-using Application.Common.Interfaces;
-using Infrastructure.Services;
+using Application.Abstractions.Commands;
+using Application.Abstractions.Queries;
+using Application.Abstractions.Services;
+using Application.Features.Memberships.CreateMembership;
+using Application.Features.Memberships.GetMembership;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
@@ -8,69 +12,56 @@ using Presentation.WebApp.Models;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class MembershipController(IMembershipService membershipService) : Controller
+public class MembershipController : Controller
 {
-    private readonly IMembershipService _membershipService = membershipService;
+    private readonly IQueryDispatcher _queries;
+    private readonly ICommandDispatcher _commands;
+
+    private readonly IMembershipPlanService _service;
+
+    public MembershipController(
+        IQueryDispatcher queries,
+        ICommandDispatcher commands,
+        IMembershipPlanService service)
+    {
+        _queries = queries;
+        _commands = commands;
+        _service = service;
+    }
 
     public async Task<IActionResult> Index(CancellationToken ct)
-{
-    var userId = User.FindFirstValue(
-        ClaimTypes.NameIdentifier);
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-    var membership =
-        await _membershipService.GetMembershipAsync(
-            userId!,
+        var membership = await _queries.Send(
+            new GetMembershipQuery(userId),
             ct);
 
-    var vm = new MembershipIndexViewModel
-    {
-        CurrentMembership = membership,
+        var plans = _service.GetPlans();
 
-        Plans =
-        [
-            new()
+        var vm = new MembershipIndexViewModel
+        {
+            CurrentMembership = membership == null ? null : new MembershipViewModel
             {
-                Name = "Basic",
-                Price = 299,
-                Description = "Perfect for getting started.",
-                Features =
-                [
-                    "Gym Access",
-                    "Locker Room",
-                    "Mobile App"
-                ]
+                MembershipType = membership.MembershipType,
+                IsActive = membership.IsActive,
+                StartDate = membership.StartDate ,
+                EndDate = membership.EndDate
             },
 
-            new()
+            Plans = plans.Select(p => new MembershipPlanViewModel
             {
-                Name = "Premium",
-                Price = 499,
-                Description = "Most popular plan.",
-                Features =
-                [
-                    "Gym Access",
-                    "Group Classes",
-                    "Nutrition Plan"
-                ]
-            },
+                MembershipType = p.MembershipType,
+                Name = p.Name,
+                Price = p.Price,
+                Description = p.Description,
+                Features = p.Features
+            }).ToList()
 
-            new()
-            {
-                Name = "Elite",
-                Price = 799,
-                Description = "Everything included.",
-                Features =
-                [
-                    "Gym Access",
-                    "Classes",
-                    "Personal Trainer"
-                ]
-            }
-        ]
-    };
+        };
 
-    return View(vm);
-}
+        return View(vm);
+    }
 
     [HttpGet]
     public IActionResult Create()
@@ -80,23 +71,19 @@ public class MembershipController(IMembershipService membershipService) : Contro
 
     [HttpPost]
     public async Task<IActionResult> Create(
-        string membershipType, CancellationToken ct)
+        MembershipType membershipType,
+        CancellationToken ct)
     {
-        var userId =
-            User.FindFirstValue(
-                ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        var success =
-            await _membershipService
-                .CreateMembershipAsync(
-                    userId!,
-                    membershipType, ct);
+        var success = await _commands.Send(
+            new CreateMembershipCommand(userId, membershipType),
+            ct);
 
         if (!success)
         {
-            ModelState.AddModelError(
-                "",
-                "Membership already exists");
+            ModelState.AddModelError("", "Membership already exists");
+            return View();
         }
 
         return RedirectToAction(nameof(Index));

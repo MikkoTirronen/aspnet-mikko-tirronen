@@ -63,12 +63,22 @@
             </div>
         </div>
 
-        <ul class="membership-features">
-            <li>✔ Unlimited class access</li>
-            <li>✔ Priority booking</li>
-            <li>✔ Member-only content</li>
-        </ul>
-            @if (Model.CurrentMembership.MembershipType == "Basic")
+            @{
+                var currentPlan = Model.Plans
+                    .FirstOrDefault(p => p.MembershipType == Model.CurrentMembership?.MembershipType);
+            }
+            
+           @if (currentPlan?.Features != null)
+            {
+                <ul class="membership-features">
+                    @foreach (var feature in currentPlan.Features)
+                    {
+                        <li>✔ @feature</li>
+                    }
+                </ul>
+            }
+        
+            @* @if (Model.CurrentMembership.MembershipType == Domain.Enums.MembershipType.Basic)
             {
                 <a asp-controller="" class="btn">Upgrade to View Classes</a>                
             }
@@ -79,7 +89,13 @@
                 class="btn">
                     Browse Classes
                 </a>
-            }
+            } *@
+
+             <a asp-controller="Classes"
+                asp-action="Index"
+                class="btn">
+                    Browse Classes
+                </a>
         </div>
 
 </div>

@@ -1,0 +1,52 @@
+<div class="account-sidebar">
+
+    <img class="account-profile-image"
+         src="~/images/profile-image-avatar.png"
+         alt="Profile image" />
+
+    <div class="account-menu">
+        <div class="account-menu__header">
+            Menu Options
+        </div>
+
+    <label class="account-menu__link" for="about-tab">
+        About Me
+        <span>›</span>
+    </label>
+
+        <a class="account-menu__link" href="#membership">
+            My Membership
+            <span>›</span>
+        </a>
+
+        <label class="account-menu__link" for="bookings-tab">
+            My Bookings
+            <span>›</span>
+        </label>
+
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button class="account-menu__link account-menu__button" type="submit">
+                Sign Out
+                <span>›</span>
+            </button>
+        </form>
+    </div>
+
+    <p class="remove-account-text">
+        If you like to cancel your account click below
+    </p>
+
+    <form asp-controller="Profile"
+      asp-action="DeleteAccount"
+      method="post"
+      onsubmit="return confirm('Are you sure you want to permanently delete your account?');">
+
+    @Html.AntiForgeryToken()
+
+    <button class="remove-account-button" type="submit">
+        Remove Account
+    </button>
+
+</form>
+
+</div>

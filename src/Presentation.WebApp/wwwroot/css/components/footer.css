@@ -1,0 +1,126 @@
+.footer {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+
+    padding: 40px 40px 24px;
+
+    background: var(--dark-color);
+    background-image: url("../images/dark-section-img.png");
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 20px;
+
+    color: var(--white-color);
+}
+
+.footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 4rem;
+
+    margin-bottom: 2rem;
+}
+
+.footer__brand img {
+    height: 42px;
+    width: auto;
+}
+
+.footer__headline {
+    max-width: 500px;
+
+    text-align: right;
+
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    color: var(--white-color);
+}
+
+.footer__divider {
+    height: 1px;
+    background: rgba(214, 235, 49, .2);
+    margin: 2rem 0;
+}
+
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+.footer__location {
+    max-width: 320px;
+}
+
+.footer__location h4,
+.footer__hours h4 {
+    margin-bottom: 1rem;
+
+    font-size: .9rem;
+    font-weight: 700;
+
+    color: var(--white-color);
+}
+
+.footer__location p,
+.footer__hours p,
+.footer__location span {
+    color: rgba(255,255,255,.75);
+    line-height: 1.8;
+    font-size: .85rem;
+}
+
+.footer__pin {
+    margin: 1.5rem 0;
+}
+
+.footer__pin i {
+    color: var(--theme-color);
+    font-size: 1.4rem;
+}
+.footer__map {
+    margin: 1rem 0 .75rem;
+}
+
+.footer__map img {
+    width: 170px;
+    height: auto;
+    display: block;
+}
+.footer__hours {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    text-align: right;
+}
+
+.footer__bottom {
+    text-align: center;
+
+    color: rgba(255,255,255,.7);
+    font-size: .8rem;
+}
+
+@media (max-width: 900px) {
+
+    .footer {
+        margin: 0 1rem 60px;
+    }
+
+    .footer__top,
+    .footer__content {
+        flex-direction: column;
+    }
+
+    .footer__headline,
+    .footer__hours {
+        text-align: left;
+    }
+}
