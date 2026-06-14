@@ -18,6 +18,10 @@ using Infrastructure.Identity;
 using Application.Common.Results;
 using Application.Features.Profile.DeleteAccount;
 using Application.Features.Profile.UpdateProfile;
+using Application.Features.GymClasses.CreateGymClass;
+using Application.Features.GymClasses.UpdateGymClass;
+using Application.Features.GymClasses.DeleteGymClass;
+using Application.Features.GymClasses.GetGymClassById;
 
 namespace Presentation.WebApp.DependencyInjections.Application;
 
@@ -37,6 +41,9 @@ public static class DependencyInjection
         services.AddScoped<IQueryHandler<GetAllClassesQuery, List<GymClassCardDto>>,
             GetAllClassesHandler>();
         services.AddScoped<IQueryHandler<GetClassDetailsQuery, GymClassDetailsDto?>, GetClassDetailsHandler>();
+        services.AddScoped<ICommandHandler<CreateGymClassCommand, Guid>, CreateGymClassHandler>();
+        services.AddScoped<ICommandHandler<UpdateGymClassCommand, Result<Guid>>, UpdateGymClassHandler>();
+        services.AddScoped<ICommandHandler<DeleteGymClassCommand, Result<Guid>>, DeleteGymClassHandler>();
 
         //Booking
         services.AddScoped<ICommandHandler<BookClassCommand, bool>, BookClassHandler>();
@@ -47,7 +54,8 @@ public static class DependencyInjection
 
         services.AddScoped<IQueryHandler<GetUserProfileQuery, UserProfileDto>,
             GetUserProfileQueryHandler>();
-
+        services.AddScoped<IQueryHandler<GetGymClassByIdQuery, GymClassAdminDto?>, GetGymClassByIdHandler>();
+        
         services.AddScoped<IUserService, UserService>();
 
         return services;
