@@ -149,6 +149,10 @@ header{
 .not-found-btn:hover {
     opacity: 0.85;
 }
+
+.text-danger{
+  color: var(--danger-color)
+}
 /* .section__header{
   display:grid;
   grid-template-columns: 1fr auto;
