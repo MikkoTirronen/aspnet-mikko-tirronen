@@ -1,4 +1,151 @@
 .membership-page {
+    padding: 4rem 1rem 6rem;
+}
+
+.membership-title {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: var(--dark-color);
+}
+
+.membership-offers {
+    max-width: 1050px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.membership-call-card {
+    background: var(--dark-color);
+    color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.membership-call-card h3 {
+    margin-bottom: 1rem;
+}
+
+.membership-call-card p {
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2rem;
+}
+
+.membership-call-card strong {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.membership-call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+
+    background: var(--theme-color);
+    color: var(--dark-color);
+    text-decoration: none;
+    font-weight: 700;
+
+    padding: .9rem 1.4rem;
+    border-radius: 999px;
+}
+
+.membership-call-card img {
+    width: 100%;
+    margin-top: 2rem;
+    display: block;
+}
+
+.membership-benefits {
+    margin: 3rem auto 7rem;
+    max-width: 700px;
+
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+
+    font-size: .9rem;
+    color: var(--dark-color);
+}
+
+.membership-faq-section {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.membership-faq-image img {
+    width: 100%;
+    border-radius: 16px;
+    display: block;
+}
+
+.section-pill {
+    display: inline-block;
+    background: var(--dark-color);
+    color: white;
+    padding: .35rem .8rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.membership-faq-content h2 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    line-height: 1.1;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+.faq-list details {
+    border-bottom: 1px solid #ddd;
+    padding: 1.25rem 0;
+}
+
+.faq-list summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.faq-list p,
+.faq-list li {
+    color: #666;
+    line-height: 1.6;
+}
+
+.faq-list ul {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+}
+
+@media (max-width: 900px) {
+    .membership-offers,
+    .membership-faq-section {
+        grid-template-columns: 1fr;
+    }
+
+    .membership-benefits {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+/* .membership-page {
     max-width: 1200px;
     margin: 4rem auto;
     padding: 0 2rem;
@@ -25,7 +172,6 @@
     gap: 2rem;
 }
 
-/* Membership cards */
 
 .membership-card {
     display: flex;
@@ -86,7 +232,7 @@
     transform: translateY(-2px);
 }
 
-/* Membership status page */
+
 
 .membership-status-wrapper {
     max-width: 1200px;
@@ -110,7 +256,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,.08);
 }
 
-/* subtle glow accent */
+
 .membership-status-card::before {
     content: "";
     position: absolute;
@@ -200,4 +346,4 @@
 .primary-cta:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 25px rgba(214, 235, 49, 0.3);
-}
+} */

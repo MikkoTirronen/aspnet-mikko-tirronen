@@ -1,0 +1,90 @@
+@model MembershipIndexViewModel
+
+<h1>Membership Page</h1>
+
+
+    @if(Model.CurrentMembership is null)
+    {
+        <div class="membership-page">
+
+            <div class="membership-header">
+
+                <h1>Choose Your Membership</h1>
+
+                <p>
+                    Select the membership that best fits your goals.
+                </p>
+
+            </div>
+
+            <div class="membership-grid">
+
+                @foreach(var plan in Model.Plans)
+                {
+                    <partial
+                        name="Partials/_MembershipCard"
+                        model="plan" />
+                }
+
+            </div>
+
+        </div>
+
+    }
+   else
+{
+    <div class="membership-status-wrapper">
+
+    <div class="membership-status-card">
+
+        <div class="membership-status-badge @(Model.CurrentMembership.IsActive ? "is-active" : "is-inactive")">
+            @(Model.CurrentMembership.IsActive ? "Active Membership" : "Inactive Membership")
+        </div>
+
+        <h1 class="membership-title">
+            @Model.CurrentMembership.MembershipType
+        </h1>
+
+        <p class="membership-subtext">
+            Your plan is currently active and giving you full access to classes and features.
+        </p>
+
+        <div class="membership-meta">
+            <div>
+                <span class="label">Started</span>
+                <span class="value">@Model.CurrentMembership.StartDate.ToShortDateString()</span>
+            </div>
+
+            <div>
+                <span class="label">Status</span>
+                <span class="value">
+                    @(Model.CurrentMembership.IsActive ? "Active" : "Inactive")
+                </span>
+            </div>
+        </div>
+
+            @{
+                var currentPlan = Model.Plans
+                    .FirstOrDefault(p => p.MembershipType == Model.CurrentMembership?.MembershipType);
+            }
+            
+           @if (currentPlan?.Features != null)
+            {
+                <ul class="membership-features">
+                    @foreach (var feature in currentPlan.Features)
+                    {
+                        <li>✔ @feature</li>
+                    }
+                </ul>
+            }
+
+
+             <a asp-controller="Classes"
+                asp-action="Index"
+                class="btn">
+                    Browse Classes
+                </a>
+        </div>
+
+</div>
+}
