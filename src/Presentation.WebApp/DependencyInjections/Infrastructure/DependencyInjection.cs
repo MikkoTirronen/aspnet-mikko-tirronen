@@ -13,10 +13,19 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        string connectionString)
+        string connectionString, IWebHostEnvironment environment)
     {
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(connectionString));
+        if (environment.IsDevelopment())
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                   options.UseInMemoryDatabase("CoreFitnessDevDb"));
+        }
+        else
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                 options.UseNpgsql(connectionString));
+        }
+
 
         services
             .AddIdentity<ApplicationUser, IdentityRole>()
