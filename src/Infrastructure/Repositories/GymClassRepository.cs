@@ -26,4 +26,15 @@ public class GymClassRepository : IGymClassRepository
         return await _context.GymClasses
             .FirstOrDefaultAsync(x => x.Id == id, ct);
     }
+
+    public async Task AddAsync(GymClass gymClass, CancellationToken ct)
+    {
+        await _context.GymClasses.AddAsync(gymClass, ct);
+    }
+
+    public Task DeleteAsync(GymClass gymClass, CancellationToken ct)
+    {
+        _context.GymClasses.Remove(gymClass);
+        return Task.CompletedTask;
+    }
 }
