@@ -1,407 +1,298 @@
-# CoreFitness
+# CoreFitness Gym Portal
 
-A full-stack gym portal built with ASP.NET Core MVC, Entity Framework Core, PostgreSQL, ASP.NET Identity, and Domain-Driven Design (DDD).
+A full-stack ASP.NET Core MVC gym portal built using Domain-Driven Design (DDD) and Clean Architecture principles.
 
-The application is based on a Figma design and allows users to register accounts, purchase memberships, browse gym classes, manage bookings, and maintain their account through a modern responsive interface.
-
-> **Note:** This project was developed as part of an ASP.NET Core assignment with a focus on Clean Architecture, Domain-Driven Design (DDD), authentication, authorization, data persistence, and responsive UI implementation from a provided Figma design.
+The application allows users to register accounts, purchase memberships, browse fitness classes, book and cancel classes, manage their profile, and authenticate using either local accounts or GitHub OAuth.
 
 ---
 
-## Features
+# Features
 
-### Authentication & Authorization
+## Authentication & Authorization
 
 * ASP.NET Core Identity
-* User registration
-* User login
-* User logout
-* Protected member-only pages
-* Account management
-* Role-ready architecture for future expansion
+* Email/password registration and login
+* GitHub OAuth login
+* Logout functionality
+* Delete account functionality
+* Role-based authorization
+* Seeded administrator account
 
-### Account Management
+## Memberships
 
-Users can manage their account through a dedicated profile area.
-
-Features include:
-
-* View profile information
-* Membership overview
-* View booked classes
-* Account statistics
-* Secure logout
-* Permanent account deletion
-* Automatic cleanup of associated memberships and bookings when an account is deleted
-
-### Membership Management
-
-Available membership plans:
-
-* Basic
-* Premium
-* Elite
-
-Features:
-
-* Membership purchase flow
-* Active membership tracking
+* Standard Membership
+* Premium Membership
 * Membership status page
-* Membership expiration support
-* Different membership tiers for future business rules
+* Active membership tracking
+* Membership management from user profile
 
-### Gym Classes
-
-Members can:
+## Fitness Classes
 
 * Browse available classes
 * View class details
-* See instructor information
-* View class capacity
-* View class schedules
-* Browse class categories
-
-### Booking System
-
-Members can:
-
 * Book classes
 * Cancel bookings
-* View booked classes in their profile
-* Prevent duplicate bookings
-* Automatically update class availability
+* Capacity tracking
+* Booking restrictions based on membership
 
-### Responsive UI
+## User Profile
 
-* Responsive navigation
-* Mobile burger menu
-* Training dropdown navigation
-* Responsive membership cards
-* Responsive profile page
-* Responsive booking pages
-* Figma-based design implementation
+* Update profile information
+* View membership information
+* View booked classes
+* Client-side validation
+* Server-side validation
+
+## Admin Features
+
+Administrators can:
+
+* Create gym classes
+* Edit gym classes
+* Delete gym classes
+* Manage available training sessions
+
+## Additional Pages
+
+* Home page
+* Membership page
+* Customer Service page
+* Custom 404 page
 
 ---
 
-## Architecture
+# Getting Started
 
-The solution follows Clean Architecture and Domain-Driven Design principles.
+## Prerequisites
+
+* .NET 10 SDK
+* Node.js & npm
+* Git
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+cd aspnet-mikko-tirronen
+```
+
+## Restore Packages
+
+```bash
+dotnet restore
+```
+
+## Install Frontend Dependencies
+
+```bash
+cd src/Presentation.WebApp
+npm install
+```
+
+## GitHub OAuth Setup (Optional)
+
+Initialize User Secrets:
+
+```bash
+dotnet user-secrets init
+```
+
+Add GitHub OAuth credentials:
+
+```bash
+dotnet user-secrets set "Authentication:GitHub:ClientId" "<client-id>"
+dotnet user-secrets set "Authentication:GitHub:ClientSecret" "<client-secret>"
+```
+
+## Run Application
+
+```bash
+dotnet run --project src/Presentation.WebApp
+```
+
+Tailwind CSS is automatically compiled during the build process.
+
+Development uses an Entity Framework InMemory database automatically.
+
+Application URLs:
 
 ```text
-src
-│
-├── Domain
-│   ├── Entities
-│   ├── Enums
-│   └── Domain Rules
-│
-├── Application
-│   ├── Commands
-│   ├── Queries
-│   ├── DTOs
-│   ├── Interfaces
-│   └── Handlers
-│
-├── Infrastructure
-│   ├── EF Core
-│   ├── PostgreSQL
-│   ├── Identity
-│   ├── Repositories
-│   └── Services
-│
-└── Presentation.WebApp
-    ├── Controllers
-    ├── Razor Views
-    ├── View Models
-    ├── CSS
-    └── Frontend Assets
+http://localhost:3000
+https://localhost:7225
 ```
 
 ---
 
-## Domain-Driven Design Approach
+# Seeded Administrator Account
 
-The project separates responsibilities into distinct layers.
+The application automatically seeds an administrator account during startup.
 
-### Domain Layer
+```text
+Email: admin@test.com
+Password: Administrator@1
+```
+
+Roles:
+
+```text
+Admin
+Member
+```
+
+All newly registered users are automatically assigned the Member role.
+
+---
+
+# Architecture
+
+The solution follows Clean Architecture and DDD principles.
+
+## Domain
 
 Contains:
 
-* GymClass
-* GymClassBooking
-* Membership
+* Entities
+* Business Rules
+* Domain Exceptions
 
-Responsible for:
-
-* Business rules
-* Domain behavior
-* Entity state management
-
-### Application Layer
+## Application
 
 Contains:
 
 * Commands
 * Queries
-* DTOs
 * Handlers
-* Abstractions
+* DTOs
+* Repository Abstractions
+* Result Pattern
 
-Examples:
-
-* CreateMembershipCommand
-* BookClassCommand
-* CancelBookingCommand
-* DeleteAccountCommand
-* GetMembershipQuery
-* GetClassDetailsQuery
-* GetUserProfileQuery
-
-### Infrastructure Layer
+## Infrastructure
 
 Contains:
 
-* PostgreSQL persistence
 * Entity Framework Core
 * ASP.NET Identity
-* Repository implementations
-* Service implementations
+* Repository Implementations
+* Database Configuration
+* GitHub OAuth Configuration
 
-### Presentation Layer
+## Presentation.WebApp
 
 Contains:
 
 * MVC Controllers
 * Razor Views
 * View Models
-* Navigation
-* Styling
-
-Controllers remain thin by delegating business logic to the Application layer through command and query dispatchers.
+* Client-side Assets
+* UI Styling
 
 ---
 
-## Technologies
-
-### Backend
+# Technologies
 
 * ASP.NET Core MVC
-* C#
+* .NET 10
 * Entity Framework Core
-* PostgreSQL
 * ASP.NET Identity
-
-### Frontend
-
-* Razor Views
-* HTML5
-* CSS3
-* Tailwind CSS build pipeline
-
-### Architecture
-
-* Domain-Driven Design (DDD)
-* Clean Architecture
-* CQRS-inspired Command/Query separation
-* Repository Pattern
-* Unit of Work Pattern
+* PostgreSQL
+* Entity Framework InMemory Database
+* GitHub OAuth
+* Tailwind CSS v4
+* Font Awesome
+* xUnit
+* FluentAssertions
 
 ---
 
-## Main Features Implemented
+# Database Configuration
 
-### Membership Feature
+## Development
 
-Users can:
+Development environments use:
 
-* Purchase memberships
-* View active memberships
-* Track membership status
+```text
+Entity Framework InMemory Database
+```
+
+## Production
+
+Production environments use:
+
+```text
+PostgreSQL
+```
+
+The database provider is selected automatically based on the current environment.
+
+---
+
+# Validation
+
+## Server-side Validation
 
 Implemented using:
 
-* Commands
-* Queries
-* Repositories
-* DTOs
+* Data Annotations
+* ModelState Validation
 
-### Gym Class Feature
+## Client-side Validation
 
-Users can:
+Implemented using:
 
-* Browse classes
-* View class details
-* See instructor information
-* Track available capacity
+* JavaScript Validation
+* Password Strength Validation
+* Profile Form Validation
 
-### Booking Feature
+---
 
-Users can:
+# Testing
 
-* Book classes
-* Cancel bookings
-* View booked classes from their profile
+The solution includes both Unit Tests and Integration Tests.
 
-Business rules include:
+## Integration Tests
 
+Covered scenarios include:
+
+* Membership creation
+* Class booking
 * Duplicate booking prevention
-* Capacity tracking
+* Booking cancellation
+* Gym class creation
+* Gym class updates
+* Gym class deletion
 
-### Profile Feature
-
-Users can:
-
-* View profile information
-* View membership details
-* View bookings
-* Logout
-* Delete account
-
-Deleting an account removes:
-
-* Membership records
-* Booking records
-* Identity account
-
-through an Application-layer command and handler.
-
----
-
-## Navigation
-
-Current site navigation includes:
-
-### Main Navigation
-
-* Fitness Centers
-* Memberships
-* Training
-* Customer Service
-* Store
-
-### Training Dropdown
-
-* Personal Training
-* Group Training
-* Classes
-
-### Account Area
-
-* About Me
-* My Membership
-* My Bookings
-* Remove Account
-
-Navigation is responsive and collapses into a burger menu on smaller devices.
-
----
-
-## Database
-
-The application uses PostgreSQL.
-
-Primary tables:
-
-```text
-AspNetUsers
-Memberships
-GymClasses
-Bookings
-```
-
-Entity Framework Core migrations are used for schema management.
-
----
-
-## Running the Project
-
-### Prerequisites
-
-* .NET 10 SDK
-* PostgreSQL
-* Node.js
-
-### Clone Repository
+Run all tests:
 
 ```bash
-git clone https://github.com/yourusername/corefitness.git
-cd corefitness
-```
-
-### Configure Database
-
-Update:
-
-```json
-appsettings.json
-```
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Your PostgreSQL connection string"
-  }
-}
-```
-
-### Apply Migrations
-
-```bash
-dotnet ef database update \
---project src/Infrastructure \
---startup-project src/Presentation.WebApp
-```
-
-### Run Application
-
-```bash
-dotnet run --project src/Presentation.WebApp
+dotnet test
 ```
 
 ---
 
-## Learning Objectives
+# Design Patterns & Practices
 
-This project was built to gain practical experience with:
+The project implements:
 
-* ASP.NET Core MVC
-* Entity Framework Core
-* PostgreSQL
-* ASP.NET Identity
-* Authentication & Authorization
+* Domain-Driven Design (DDD)
+* Clean Architecture
+* CQRS (Command Query Responsibility Segregation)
+* Repository Pattern
+* Result Pattern
+* Domain Exception Pattern
+* Dependency Injection
+* Role-Based Authorization
+
+---
+
+# Project Goals
+
+The project was developed as part of an ASP.NET Core assignment with focus on:
+
 * Domain-Driven Design
 * Clean Architecture
-* CQRS patterns
-* Repository Pattern
-* Unit of Work Pattern
-* Responsive UI implementation from Figma
-
----
-
-## Future Improvements
-
-Potential future enhancements:
-
-* Profile image uploads
-* Membership renewals
-* Payment integration
-* Email notifications
-* Instructor management
-* Admin dashboard
-* Fitness progress tracking
-* Class waitlists
-* Membership analytics
-
----
-
-## Author
-
-**Mikko Tirronen**
-
-Full Stack Developer student focused on:
-
-* C#
-* .NET
-* ASP.NET Core
-* PostgreSQL
-* Full-stack web development
+* Authentication & Authorization
+* Data Persistence
+* Testing
+* Maintainability
+* Separation of Concerns
+* Full-Stack Web Development
