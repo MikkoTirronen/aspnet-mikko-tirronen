@@ -23,6 +23,28 @@ public class GymClass
         Category = category;
     }
 
+    public void UpdateDetails(
+    string name,
+    string instructor,
+    DateTime startTime,
+    int capacity,
+    string category)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new InvalidOperationException("Class name is required.");
+
+        if (string.IsNullOrWhiteSpace(instructor))
+            throw new InvalidOperationException("Instructor is required.");
+
+        if (capacity < _bookings.Count)
+            throw new InvalidOperationException("Capacity cannot be lower than current bookings.");
+
+        Name = name;
+        Instructor = instructor;
+        StartTime = DateTime.SpecifyKind(startTime, DateTimeKind.Utc);
+        Capacity = capacity;
+        Category = category;
+    }
     public void Book(string userId)
     {
         if (_bookings.Count >= Capacity)

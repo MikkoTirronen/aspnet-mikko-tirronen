@@ -75,7 +75,12 @@
                 Become Member
             </a>
         </li>
-
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="AdminClasses" asp-action="Index">
+                Admin
+            </a>
+        }
         
     </ul>
 

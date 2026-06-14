@@ -1,0 +1,65 @@
+@model AdminGymClassFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Class";
+}
+
+<section class="admin-page">
+
+    <div class="admin-form-card">
+
+        <span class="section-pill">Admin</span>
+
+        <h1>Edit Class</h1>
+
+        <form asp-action="Edit" method="post" class="admin-form">
+
+            @Html.AntiForgeryToken()
+
+            <input asp-for="Id" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+
+            <div class="form-row">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" placeholder="Class name" />
+                <span asp-validation-for="Name" class="text-red-500"></span>
+            </div>
+
+            <div class="form-row">
+                <label asp-for="Instructor"></label>
+                <input asp-for="Instructor" placeholder="Instructor" />
+                <span asp-validation-for="Instructor" class="text-red-500"></span>
+            </div>
+
+            <div class="form-row">
+                <label asp-for="Category"></label>
+                <input asp-for="Category" placeholder="Category" />
+                <span asp-validation-for="Category" class="text-red-500"></span>
+            </div>
+
+            <div class="form-row">
+                <label asp-for="StartTime"></label>
+                <input asp-for="StartTime" type="datetime-local" />
+                <span asp-validation-for="StartTime" class="text-red-500"></span>
+            </div>
+
+            <div class="form-row">
+                <label asp-for="Capacity"></label>
+                <input asp-for="Capacity" type="number" min="1" max="100" />
+                <span asp-validation-for="Capacity" class="text-red-500"></span>
+            </div>
+
+            <div class="admin-form-actions">
+                <a asp-action="Index" class="admin-secondary-btn">Cancel</a>
+
+                <button type="submit" class="admin-primary-btn">
+                    Save Changes <span>›</span>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>

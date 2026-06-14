@@ -29,21 +29,13 @@
       <link rel="stylesheet" href="~/css/components/footer.css" asp-append-version="true" />
       <link rel="stylesheet" href="~/css/components/account/account.css" asp-append-version="true" />
       <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+      
 </head>
 <body>
     <div class="layout">
-        
-             @* @await Html.PartialAsync("Partials/_PublicNav") *@
-             @* @if (User.Identity?.IsAuthenticated == true)
-            {
-                <partial name="Partials/_AuthNav" />
-            }
-            else
-            {
-                <partial name="Partials/_PublicNav" />
-            } *@
+
              <partial name  ="~/Views/Shared/Navigation/_Header.cshtml"/> 
-            @* @RenderSectionAsync("Hero", required:false) *@
         
         <main>
             @RenderBody()
