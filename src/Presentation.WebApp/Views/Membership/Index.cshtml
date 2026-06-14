@@ -1,102 +1,94 @@
 @model MembershipIndexViewModel
 
-<h1>Membership Page</h1>
-
-
-    @if(Model.CurrentMembership is null)
-    {
-        <div class="membership-page">
-
-            <div class="membership-header">
-
-                <h1>Choose Your Membership</h1>
-
-                <p>
-                    Select the membership that best fits your goals.
-                </p>
-
-            </div>
-
-            <div class="membership-grid">
-
-                @foreach(var plan in Model.Plans)
-                {
-                    <partial
-                        name="Partials/_MembershipCard"
-                        model="plan" />
-                }
-
-            </div>
-
-        </div>
-
-    }
-   else
-{
-    <div class="membership-status-wrapper">
-
-    <div class="membership-status-card">
-
-        <div class="membership-status-badge @(Model.CurrentMembership.IsActive ? "is-active" : "is-inactive")">
-            @(Model.CurrentMembership.IsActive ? "Active Membership" : "Inactive Membership")
-        </div>
-
-        <h1 class="membership-title">
-            @Model.CurrentMembership.MembershipType
-        </h1>
-
-        <p class="membership-subtext">
-            Your plan is currently active and giving you full access to classes and features.
-        </p>
-
-        <div class="membership-meta">
-            <div>
-                <span class="label">Started</span>
-                <span class="value">@Model.CurrentMembership.StartDate.ToShortDateString()</span>
-            </div>
-
-            <div>
-                <span class="label">Status</span>
-                <span class="value">
-                    @(Model.CurrentMembership.IsActive ? "Active" : "Inactive")
-                </span>
-            </div>
-        </div>
-
-            @{
-                var currentPlan = Model.Plans
-                    .FirstOrDefault(p => p.MembershipType == Model.CurrentMembership?.MembershipType);
-            }
-            
-           @if (currentPlan?.Features != null)
-            {
-                <ul class="membership-features">
-                    @foreach (var feature in currentPlan.Features)
-                    {
-                        <li>✔ @feature</li>
-                    }
-                </ul>
-            }
-        
-            @* @if (Model.CurrentMembership.MembershipType == Domain.Enums.MembershipType.Basic)
-            {
-                <a asp-controller="" class="btn">Upgrade to View Classes</a>                
-            }
-            else
-            {
-                <a asp-controller="Classes"
-                asp-action="Index"
-                class="btn">
-                    Browse Classes
-                </a>
-            } *@
-
-             <a asp-controller="Classes"
-                asp-action="Index"
-                class="btn">
-                    Browse Classes
-                </a>
-        </div>
-
-</div>
+@{
+    ViewData["Title"] = "Memberships";
 }
+
+<section class="membership-page">
+
+    <h1 class="membership-title">Our Membership Offers</h1>
+
+    <div class="membership-offers">
+
+        @foreach (var plan in Model.Plans)
+        {
+            <partial name="~/Views/Shared/Partials/_MembershipCard.cshtml"
+                    model="plan" />
+        }
+
+        <partial name="~/Views/Shared/Partials/_MembershipCallCard.cshtml" />
+
+    </div>
+
+    <div class="membership-benefits">
+
+        <span>
+            <i class="fa-regular fa-calendar-check"></i>
+            Get 30 day free trial
+        </span>
+
+        <span>
+            <i class="fa-regular fa-credit-card"></i>
+            No any hidden fees pay
+        </span>
+
+        <span>
+            <i class="fa-regular fa-clock"></i>
+            You can cancel anytime
+        </span>
+
+    </div>
+
+    <section class="membership-faq-section">
+
+        <div class="membership-faq-image">
+            <img src="~/images/faq-image.png" alt="Gym training" />
+        </div>
+
+        <div class="membership-faq-content">
+
+            <span class="section-pill">Frequently Asked Questions</span>
+
+            <h2>Common questions about gym and training</h2>
+
+            <div class="faq-list">
+
+                <details open>
+                    <summary>Q1. Do I need prior gym experience to Join CoreFitness?</summary>
+                    <p>
+                        No, CoreFitness is designed for all fitness levels. Our trainers guide beginners with proper techniques and structured workout plans.
+                    </p>
+                    <ul>
+                        <li>Every new member receives a personalized introduction to equipment.</li>
+                        <li>Workouts are designed to grow with you.</li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary>Q2. What facilities are included with the membership?</summary>
+                    <p>Members get access to gym facilities, lockers and selected training areas depending on membership type.</p>
+                </details>
+
+                <details>
+                    <summary>Q3. Can I try the gym before taking a membership?</summary>
+                    <p>Yes, you can try a membership free for one week.</p>
+                </details>
+
+                <details>
+                    <summary>Q4. Are there group workout programs available?</summary>
+                    <p>Yes, we offer several group workout classes.</p>
+                </details>
+
+                <details>
+                    <summary>Q5. Is nutrition guidance included in the plans?</summary>
+                    <p>Nutrition guidance may be included depending on your membership plan.</p>
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+<partial name="~/Views/Shared/Partials/Common/_Footer.cshtml" />
