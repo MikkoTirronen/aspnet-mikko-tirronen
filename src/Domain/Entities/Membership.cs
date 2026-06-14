@@ -1,23 +1,20 @@
-using Domain.Enums;
-
 namespace Domain.Entities;
 
 public class Membership
 {
     public Guid Id { get; set; }
     public string UserId { get; set; } = null!;
-    public MembershipType MembershipType { get; set; }
+    public string MembershipType { get; set; } = null!;
     public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; private set; }
-    public bool IsActive => DateTime.UtcNow <= EndDate;
+    public bool IsActive { get; set; }
 
     private Membership() { }
 
-    public Membership(string userId, MembershipType membershipType)
+    public Membership(string userId, string membershipType)
     {
         UserId = userId;
         MembershipType = membershipType;
         StartDate = DateTime.UtcNow;
-        EndDate = DateTime.UtcNow.AddMonths(1);
+        IsActive = true;
     }
 }
